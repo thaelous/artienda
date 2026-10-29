@@ -1,0 +1,2522 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NadiArt | Cerámica, Relieve & Tesoros Artesanales</title>
+  <meta name="description" content="Boutique artesanal de piezas únicas en cerámica blanca, texturas en relieve y tesoros curados con amor.">
+
+  <!-- Tipografía: Playfair Display (Serif encabezados) + Plus Jakarta Sans (Sans cuerpo) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            linen: '#FAF8F5',
+            warmbeige: '#F1ECE1',
+            clay: '#B87D59',
+            sandgold: {
+              300: '#E6C594',
+              400: '#D4A373',
+              500: '#B8860B',
+              600: '#996F08',
+            },
+            glacier: {
+              50: '#F0FAFD',
+              100: '#D7F3FA',
+              300: '#8AE0F2',
+              400: '#48BFE3',
+              500: '#2BA8C4',
+              700: '#1D7286',
+            },
+            charcoal: '#2B2B2B',
+            mutedgray: '#6B7280'
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Variables CSS Globales Dinámicas para CMS y Preajustes Estacionales -->
+  <style id="dynamicThemeStyles">
+    :root {
+      --color-primary: #D4A373;
+      --color-secondary: #48BFE3;
+      --color-bg: #FAF8F5;
+      --color-text: #2B2B2B;
+    }
+
+    body {
+      background-color: var(--color-bg, #FAF8F5);
+      color: var(--color-text, #2B2B2B);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .font-serif {
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* Utilidades dinámicas ligadas a variables CSS */
+    .text-theme-primary {
+      color: var(--color-primary, #D4A373) !important;
+    }
+    .bg-theme-primary {
+      background-color: var(--color-primary, #D4A373) !important;
+    }
+    .border-theme-primary {
+      border-color: var(--color-primary, #D4A373) !important;
+    }
+
+    .text-theme-secondary {
+      color: var(--color-secondary, #48BFE3) !important;
+    }
+    .bg-theme-secondary {
+      background-color: var(--color-secondary, #48BFE3) !important;
+    }
+    .border-theme-secondary {
+      border-color: var(--color-secondary, #48BFE3) !important;
+    }
+
+    .store-dynamic-bg {
+      background-color: var(--color-bg, #FAF8F5) !important;
+    }
+    .store-dynamic-text {
+      color: var(--color-text, #2B2B2B) !important;
+    }
+
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: #F1ECE1;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: var(--color-primary, #D4A373);
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-sandgold-400 selection:text-white">
+
+  <!-- ==================== HEADER & NAVBAR ==================== -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-warmbeige shadow-xs transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Logo Branding con Imagen /nadia.png -->
+      <a href="#inicio" onclick="UI.showClientView(); return false;" class="flex items-center gap-3.5 group cursor-pointer text-decoration-none">
+        <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-theme-primary bg-[#FAF8F5] flex items-center justify-center p-0.5 shadow-inner group-hover:scale-105 transition-transform duration-200 shrink-0">
+          <img src="/nadia.png" alt="Logo NadiArt" class="w-full h-full object-contain rounded-full">
+        </div>
+        <div>
+          <div class="flex items-center gap-1.5">
+            <span id="cmsBrandName" class="font-serif text-2xl font-bold tracking-wider store-dynamic-text">Nadi<span class="text-theme-primary font-medium">Art</span></span>
+            <span id="cmsBrandBadge" class="text-[10px] tracking-widest uppercase font-semibold text-theme-secondary bg-glacier-50 px-2 py-0.5 rounded-full border border-theme-secondary">Taller</span>
+          </div>
+          <p id="cmsBrandSubtitle" class="text-xs text-stone-500 font-light tracking-wide">Cerámica, relieve & tesoros artesanales</p>
+        </div>
+      </a>
+
+      <!-- Menú de Navegación Dinámico generado desde siteSettings.navigation -->
+      <div class="flex items-center gap-3">
+        <nav id="dynamicNavbarLinks" class="hidden sm:flex items-center gap-1">
+          <!-- Renderizado dinámico vía UI.renderDynamicNavbar() -->
+        </nav>
+
+        <!-- Indicador de conexión en la nube / Firebase -->
+        <div id="cloudSyncIndicator" class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200" title="Sincronización en tiempo real activa">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>Nube Sincronizada</span>
+        </div>
+
+        <!-- Botón Acceso Administración -->
+        <button id="adminNavBtn" onclick="UI.handleAdminNavAction()" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-full border border-theme-primary bg-amber-50/70 text-theme-primary text-xs font-medium hover:bg-theme-primary hover:text-white transition-all duration-200 shadow-2xs">
+          <i data-lucide="lock" class="w-3.5 h-3.5"></i>
+          <span id="adminNavText">Acceso Administración</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ==================== NOTIFICACIÓN TOAST ==================== -->
+  <div id="toastNotification" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 bg-charcoal text-white text-sm px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-3 border border-stone-700 pointer-events-none">
+    <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400 shrink-0"></i>
+    <span id="toastText">Operación exitosa</span>
+  </div>
+
+  <main class="flex-grow">
+    
+    <!-- ==================== VISTA CLIENTE (TIENDA PÚBLICA) ==================== -->
+    <div id="clientView">
+
+      <!-- HERO SECTION -->
+      <section id="inicio" class="relative overflow-hidden bg-gradient-to-b from-[#FAF8F5] via-warmbeige/30 to-transparent pt-12 pb-16 lg:pt-20 lg:pb-24 border-b border-warmbeige/60">
+        <div class="absolute -top-12 -right-12 w-64 h-64 rounded-full bg-glacier-100/50 blur-3xl pointer-events-none"></div>
+        <div class="absolute top-1/2 -left-20 w-80 h-80 rounded-full bg-amber-100/40 blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            
+            <div class="lg:col-span-7 text-center lg:text-left space-y-6">
+              <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-theme-primary shadow-xs">
+                <i data-lucide="sparkles" class="w-4 h-4 text-theme-primary"></i>
+                <span id="cmsHeroBadge" class="text-xs font-semibold text-stone-700 uppercase tracking-widest">Edición Limitada Hecha a Mano</span>
+              </div>
+
+              <h1 id="cmsHeroTitle" class="font-serif text-4xl sm:text-5xl lg:text-6xl text-charcoal font-bold leading-tight">
+                Detalles únicos que cuentan una <span class="italic font-normal text-theme-primary">historia</span>
+              </h1>
+
+              <p id="cmsHeroSubtitle" class="text-stone-600 text-base sm:text-lg max-w-xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                Cerámica blanca, texturas en relieve invernales con destellos en dorado arena y toques en turquesa glacial. Cada pieza es modelada con calma y amor para llenar de luz y arte tu hogar.
+              </p>
+
+              <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+                <a href="#catalogo" onclick="UI.handleNavClick(event, '#catalogo')" class="px-6 py-3.5 rounded-full bg-charcoal text-white hover:bg-stone-800 text-sm font-semibold tracking-wide transition-all duration-200 shadow-md hover:shadow-lg flex items-center gap-2">
+                  <span id="cmsHeroCtaText">Ver Piezas Disponibles</span>
+                  <i data-lucide="arrow-down" class="w-4 h-4"></i>
+                </a>
+                <button onclick="UI.contactGeneralWhatsApp()" class="px-6 py-3.5 rounded-full bg-white text-stone-800 border border-stone-300 hover:border-theme-primary hover:bg-amber-50/40 text-sm font-semibold tracking-wide transition-all flex items-center gap-2">
+                  <i data-lucide="message-circle" class="w-4 h-4 text-emerald-600"></i>
+                  <span id="cmsHeroWhatsAppText">Pregúntame por WhatsApp</span>
+                </button>
+              </div>
+
+              <div class="flex items-center justify-center lg:justify-start gap-6 pt-4 text-xs text-stone-500 font-medium">
+                <div class="flex items-center gap-1.5">
+                  <i data-lucide="check" class="w-4 h-4 text-theme-primary"></i>
+                  <span>100% Artesanal</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <i data-lucide="shield-check" class="w-4 h-4 text-theme-primary"></i>
+                  <span>Sello de Autor</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <i data-lucide="gift" class="w-4 h-4 text-theme-primary"></i>
+                  <span>Listo para regalar</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Collage / Destacado Visual -->
+            <div class="lg:col-span-5 relative">
+              <div class="relative mx-auto max-w-sm sm:max-w-md lg:max-w-none">
+                <div class="relative bg-white p-3.5 rounded-3xl shadow-xl border border-warmbeige transform -rotate-1 hover:rotate-0 transition-all duration-300">
+                  <div class="aspect-4/3 rounded-2xl overflow-hidden bg-warmbeige/40 relative">
+                    <img id="heroImage" src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&q=80&w=800" alt="Artesanía y Cerámica NadiArt" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-5">
+                      <div class="text-white">
+                        <span class="text-[11px] font-semibold uppercase tracking-widest text-glacier-300 bg-black/40 px-2.5 py-1 rounded-full backdrop-blur-xs">Colección Especial</span>
+                        <h4 class="font-serif text-xl font-bold mt-1">Copos de Nieve & Oro Fino</h4>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="p-3 flex items-center justify-between text-xs text-stone-600">
+                    <span class="flex items-center gap-1"><i data-lucide="heart" class="w-3.5 h-3.5 text-rose-500 fill-rose-500"></i> Cerámica NadiArt</span>
+                    <span class="font-semibold text-theme-primary">Taller Exclusivo</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- CATÁLOGO CON FILTROS DINÁMICOS -->
+      <section id="catalogo" class="py-14 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-2xl mx-auto mb-10 space-y-3">
+          <h2 class="font-serif text-3xl sm:text-4xl text-charcoal font-bold">Catálogo de Piezas</h2>
+          <div class="w-16 h-0.5 bg-theme-primary mx-auto"></div>
+          <p class="text-stone-600 text-sm sm:text-base">
+            Explora las creaciones disponibles sincronizadas en tiempo real desde el taller. Si te enamoras de una pieza, pídela al instante por WhatsApp.
+          </p>
+        </div>
+
+        <!-- Barra de Filtros y Búsqueda -->
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4 mb-8 bg-white p-4 rounded-2xl border border-warmbeige shadow-xs">
+          
+          <!-- Pestañas de Categoría -->
+          <div class="flex flex-wrap items-center gap-2 w-full md:w-auto" id="categoryFilterButtons">
+            <button onclick="UI.setCategory('all')" data-cat="all" class="cat-btn px-4 py-2 rounded-full text-xs font-semibold transition-all bg-charcoal text-white shadow-xs">
+              Todos
+            </button>
+            <button onclick="UI.setCategory('Navidad & Temporada')" data-cat="Navidad & Temporada" class="cat-btn px-4 py-2 rounded-full text-xs font-semibold text-stone-600 hover:bg-stone-100 border border-stone-200">
+              🎄 Navidad & Temporada
+            </button>
+            <button onclick="UI.setCategory('Cerámica & Relieve')" data-cat="Cerámica & Relieve" class="cat-btn px-4 py-2 rounded-full text-xs font-semibold text-stone-600 hover:bg-stone-100 border border-stone-200">
+              🏺 Cerámica & Relieve
+            </button>
+            <button onclick="UI.setCategory('Bazar & Oportunidades')" data-cat="Bazar & Oportunidades" class="cat-btn px-4 py-2 rounded-full text-xs font-semibold text-stone-600 hover:bg-stone-100 border border-stone-200">
+              ✨ Bazar & Oportunidades
+            </button>
+          </div>
+
+          <!-- Buscador en tiempo real y filtro solo disponibles -->
+          <div class="flex items-center gap-3 w-full md:w-auto">
+            <div class="relative flex-grow sm:w-60">
+              <i data-lucide="search" class="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+              <input type="text" id="searchInput" oninput="UI.renderCatalog()" placeholder="Buscar por nombre o detalle..." class="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-stone-200 bg-stone-50/50 focus:bg-white focus:outline-none focus:border-theme-primary transition-all">
+            </div>
+
+            <label class="flex items-center gap-2 cursor-pointer select-none text-xs text-stone-600 shrink-0 bg-stone-50 px-3 py-2 rounded-xl border border-stone-200 hover:bg-stone-100 transition-colors">
+              <input type="checkbox" id="onlyAvailableCheck" onchange="UI.renderCatalog()" class="rounded text-theme-primary focus:ring-theme-primary h-3.5 w-3.5 border-stone-300">
+              <span>Solo disponibles</span>
+            </label>
+          </div>
+
+        </div>
+
+        <!-- Grid de Tarjetas de Producto -->
+        <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <!-- Renderizado dinámico vía JavaScript -->
+        </div>
+
+        <!-- Estado vacío si no hay coincidencias -->
+        <div id="noProductsState" class="hidden text-center py-16 bg-white rounded-3xl border border-dashed border-stone-200 p-8">
+          <div class="w-16 h-16 rounded-full bg-amber-50 mx-auto flex items-center justify-center text-theme-primary mb-4">
+            <i data-lucide="package-open" class="w-8 h-8"></i>
+          </div>
+          <h3 class="font-serif text-lg font-bold text-charcoal">No encontramos piezas con ese filtro</h3>
+          <p class="text-xs text-stone-500 mt-1 max-w-sm mx-auto">Prueba cambiando el término de búsqueda o seleccionando otra categoría.</p>
+          <button onclick="UI.resetFilters()" class="mt-4 px-4 py-2 rounded-full bg-charcoal text-white text-xs font-semibold hover:bg-stone-800 transition">
+            Ver todo el catálogo
+          </button>
+        </div>
+
+      </section>
+
+      <!-- SECCIÓN EL TALLER / SOBRE LA ARTESANA -->
+      <section id="taller" class="store-dynamic-bg py-16 border-t border-warmbeige">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="bg-white rounded-3xl p-8 sm:p-12 border border-warmbeige shadow-xs grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+            
+            <div class="md:col-span-5 text-center">
+              <div class="relative inline-block">
+                <!-- Marco circular con la imagen del logo /nadia.png permanente -->
+                <div class="w-48 h-48 sm:w-56 sm:h-56 rounded-full overflow-hidden border-4 border-theme-primary p-1 bg-white shadow-md mx-auto">
+                  <img src="/nadia.png" alt="Logo NadiArt" class="w-full h-full object-cover rounded-full">
+                </div>
+                <div class="absolute bottom-2 right-2 bg-charcoal text-white text-[11px] px-3 py-1 rounded-full font-semibold border-2 border-white shadow-sm flex items-center gap-1">
+                  <span>🎨 Arte & Amor</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="md:col-span-7 space-y-4 text-stone-700">
+              <span id="cmsAboutBadge" class="text-xs font-bold tracking-widest uppercase text-theme-primary">El alma del taller</span>
+              <h3 id="cmsAboutTitle" class="font-serif text-2xl sm:text-3xl text-charcoal font-bold">Creando con las manos y el corazón</h3>
+              <p id="cmsAboutQuote" class="text-sm leading-relaxed text-stone-600 italic">
+                "Ahorita que tengo un poco más de tiempo, he decidido compartir mis piezas. Hago cerámica, cuadros con relieve y aprovecho para sacar todo mi lado creativo."
+              </p>
+              <p id="cmsAboutDesc" class="text-xs leading-relaxed text-stone-500">
+                Cada estrella, copo, esfera y plato lleva un proceso cuidadoso de modelado, secado, esmaltado y pintado fino con acabados en dorado arena y esmaltes cristalinos en turquesa. Además, encontrarás artículos curados y oportunidades en excelente estado.
+              </p>
+
+              <div class="pt-2 flex flex-wrap items-center gap-3">
+                <button onclick="UI.contactGeneralWhatsApp()" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold transition-colors shadow-sm">
+                  <i data-lucide="message-circle" class="w-4 h-4"></i>
+                  <span>Enviar mensaje por WhatsApp</span>
+                </button>
+                <div class="inline-flex items-center gap-1 text-xs text-stone-500 font-medium px-3 py-2 bg-stone-50 rounded-full border border-stone-200">
+                  <i data-lucide="map-pin" class="w-3.5 h-3.5 text-stone-400"></i>
+                  <span id="cmsAboutDeliveryNote">Entregas locales y envíos a convenir</span>
+                </div>
+              </div>
+
+              <!-- Enlaces rápidos de redes en sección contacto -->
+              <div id="aboutSocialPills" class="pt-3 flex flex-wrap items-center gap-2">
+                <!-- Renderizado dinámico de canales activos -->
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ==================== VISTA PANEL DE ADMINISTRACIÓN (CMS COMPLETO + FIREBASE) ==================== -->
+    <div id="adminView" class="hidden min-h-[calc(100vh-80px)] bg-stone-100/70 py-8 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-7xl mx-auto space-y-6">
+        
+        <!-- Cabecera del Panel Privado -->
+        <div class="bg-white rounded-2xl p-6 border border-stone-200 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-amber-50 text-theme-primary flex items-center justify-center font-bold text-xl border border-theme-primary/30">
+              <i data-lucide="layout-dashboard" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <!-- REGLA DE PRIVACIDAD CRÍTICA: Título neutral sin nombres de usuario -->
+                <h2 class="text-xl font-bold text-charcoal">Panel de Gestión</h2>
+                <span class="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-md uppercase flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
+                  Firebase Conectado
+                </span>
+              </div>
+              <p class="text-xs text-stone-500">Gestión de inventario con Cloud Storage y Firestore en tiempo real.</p>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+            <button onclick="UI.showClientView()" class="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl border border-stone-300 bg-white text-stone-700 text-xs font-semibold hover:bg-stone-50 transition">
+              <i data-lucide="eye" class="w-4 h-4"></i>
+              <span>Ver Tienda Pública</span>
+            </button>
+            <button onclick="AuthService.logout()" class="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold hover:bg-rose-100 transition">
+              <i data-lucide="log-out" class="w-4 h-4"></i>
+              <span>Cerrar Sesión</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Pestañas de Navegación del Panel Admin -->
+        <div class="bg-white p-2 rounded-2xl border border-stone-200 shadow-xs flex flex-wrap items-center gap-2">
+          <button id="adminTabBtnInventory" onclick="UI.switchAdminTab('inventory')" class="admin-nav-tab flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold transition bg-charcoal text-white shadow-xs">
+            <i data-lucide="package" class="w-4 h-4"></i>
+            <span>Inventario & Piezas</span>
+          </button>
+          <button id="adminTabBtnCustomization" onclick="UI.switchAdminTab('customization')" class="admin-nav-tab flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold transition text-stone-600 hover:bg-stone-100 border border-stone-200">
+            <i data-lucide="palette" class="w-4 h-4 text-theme-primary"></i>
+            <span>Personalización de Sitio / Contenido</span>
+          </button>
+          <button id="adminTabBtnSecurity" onclick="UI.switchAdminTab('security')" class="admin-nav-tab flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold transition text-stone-600 hover:bg-stone-100 border border-stone-200">
+            <i data-lucide="shield-check" class="w-4 h-4"></i>
+            <span>Seguridad & Acceso</span>
+          </button>
+        </div>
+
+        <!-- Métricas Rápidas -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-white p-4 rounded-2xl border border-stone-200 shadow-2xs">
+            <span class="text-xs text-stone-500 font-medium">Total Productos</span>
+            <p id="statTotalCount" class="text-2xl font-bold text-charcoal mt-1">0</p>
+          </div>
+          <div class="bg-white p-4 rounded-2xl border border-stone-200 shadow-2xs">
+            <span class="text-xs text-stone-500 font-medium">Disponibles</span>
+            <p id="statAvailableCount" class="text-2xl font-bold text-emerald-600 mt-1">0</p>
+          </div>
+          <div class="bg-white p-4 rounded-2xl border border-stone-200 shadow-2xs">
+            <span class="text-xs text-stone-500 font-medium">Agotados</span>
+            <p id="statSoldCount" class="text-2xl font-bold text-amber-600 mt-1">0</p>
+          </div>
+          <div class="bg-white p-4 rounded-2xl border border-stone-200 shadow-2xs">
+            <span class="text-xs text-stone-500 font-medium">WhatsApp de Pedidos</span>
+            <p id="statWhatsAppPhone" class="text-xs font-semibold text-stone-800 mt-2 truncate">+52 ...</p>
+          </div>
+        </div>
+
+        <!-- ==================== PESTAÑA 1: INVENTARIO (FIRESTORE & STORAGE) ==================== -->
+        <div id="adminTabContentInventory" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          <!-- FORMULARIO: AGREGAR O EDITAR PRODUCTO (5 Cols) -->
+          <div class="lg:col-span-5 bg-white rounded-3xl p-6 border border-stone-200 shadow-xs space-y-5">
+            <div class="border-b border-stone-100 pb-3 flex items-center justify-between">
+              <div>
+                <h3 id="formTitleText" class="font-serif text-lg font-bold text-charcoal">Publicar Nueva Pieza</h3>
+                <p class="text-xs text-stone-500">Las fotos se guardan en Firebase Storage y los datos en Firestore</p>
+              </div>
+              <button id="cancelEditBtn" onclick="UI.resetAdminForm()" class="hidden text-xs text-rose-600 font-medium hover:underline">
+                Cancelar edición
+              </button>
+            </div>
+
+            <!-- Indicador visual de subida de imagen y guardado en Firestore -->
+            <div id="adminFormLoadingIndicator" class="hidden flex items-center justify-center gap-3 p-3.5 bg-amber-50 text-amber-900 rounded-2xl border border-amber-300 text-xs font-semibold">
+              <div class="w-4 h-4 border-2 border-amber-600 border-t-transparent rounded-full animate-spin"></div>
+              <span id="adminFormLoadingMessage">Subiendo imagen a Firebase Storage y guardando en Firestore...</span>
+            </div>
+
+            <form id="adminProductForm" onsubmit="UI.handleProductFormSubmit(event)" class="space-y-4">
+              <input type="hidden" id="adminEditId" value="">
+
+              <div>
+                <label class="block text-xs font-semibold text-stone-700 mb-1">Título de la Pieza *</label>
+                <input type="text" id="adminTitle" required placeholder="Ej: Esfera Copo de Nieve Cerámica" class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-stone-200 focus:outline-none focus:border-theme-primary bg-stone-50/50">
+              </div>
+
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-xs font-semibold text-stone-700 mb-1">Precio ($ MXN) *</label>
+                  <input type="number" id="adminPrice" required min="0" step="1" placeholder="120" class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-stone-200 focus:outline-none focus:border-theme-primary bg-stone-50/50">
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-stone-700 mb-1">Categoría *</label>
+                  <select id="adminCategory" required class="w-full text-xs px-3 py-2.5 rounded-xl border border-stone-200 focus:outline-none focus:border-theme-primary bg-stone-50/50">
+                    <option value="Navidad & Temporada">Navidad & Temporada</option>
+                    <option value="Cerámica & Relieve">Cerámica & Relieve</option>
+                    <option value="Bazar & Oportunidades">Bazar & Oportunidades</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-stone-700 mb-1">Estado del Inventario</label>
+                <select id="adminStatus" class="w-full text-xs px-3 py-2.5 rounded-xl border border-stone-200 focus:outline-none focus:border-theme-primary bg-stone-50/50">
+                  <option value="Disponible">🟢 Disponible para entrega</option>
+                  <option value="Agotado">🔴 Agotado / Pieza Vendida</option>
+                </select>
+              </div>
+
+              <!-- Carga de Imagen a Firebase Storage -->
+              <div>
+                <label class="block text-xs font-semibold text-stone-700 mb-1">Fotografía de la pieza *</label>
+                <div class="space-y-2">
+                  <label class="flex flex-col items-center justify-center border-2 border-dashed border-stone-300 rounded-2xl p-4 cursor-pointer hover:bg-stone-50 hover:border-theme-primary transition-colors text-center">
+                    <i data-lucide="camera" class="w-6 h-6 text-theme-primary mb-1"></i>
+                    <span class="text-xs font-medium text-stone-700">Subir foto o tomar con la cámara</span>
+                    <span class="text-[10px] text-stone-400">Se guardará automáticamente en Firebase Storage</span>
+                    <input type="file" id="adminFileInput" accept="image/*" class="hidden" onchange="UI.handleImageFileSelect(event)">
+                  </label>
+
+                  <div class="relative">
+                    <input type="text" id="adminImageUrlInput" placeholder="O pega un enlace de imagen (URL pública)..." onchange="UI.handleImageUrlInput(this.value)" class="w-full text-[11px] px-3 py-2 rounded-xl border border-stone-200 focus:outline-none focus:border-theme-primary bg-stone-50/30">
+                  </div>
+                </div>
+
+                <div id="adminImagePreviewBox" class="mt-3 relative hidden aspect-video rounded-xl overflow-hidden border border-stone-200 bg-stone-100">
+                  <img id="adminImagePreview" src="" alt="Vista previa" class="w-full h-full object-cover">
+                  <button type="button" onclick="UI.clearAdminImage()" class="absolute top-2 right-2 bg-charcoal/80 text-white p-1 rounded-full text-xs hover:bg-rose-600 transition">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-stone-700 mb-1">Descripción corta o medidas</label>
+                <textarea id="adminDesc" rows="3" placeholder="Ej: Cerámica con textura de pino nevado en dorado y relieve. Diámetro: 8cm." class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-stone-200 focus:outline-none focus:border-theme-primary bg-stone-50/50"></textarea>
+              </div>
+
+              <button type="submit" id="adminFormSubmitBtn" class="w-full py-3 rounded-xl bg-theme-primary hover:opacity-90 text-white font-semibold text-xs tracking-wider uppercase transition shadow-sm flex items-center justify-center gap-2">
+                <i data-lucide="plus-circle" class="w-4 h-4"></i>
+                <span id="adminFormSubmitText">Publicar Pieza</span>
+              </button>
+            </form>
+          </div>
+
+          <!-- TABLA DE INVENTARIO (7 Cols) -->
+          <div class="lg:col-span-7 space-y-6">
+            <div class="bg-white rounded-3xl p-6 border border-stone-200 shadow-xs">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-stone-100">
+                <div>
+                  <h3 class="font-serif text-lg font-bold text-charcoal">Gestión de Inventario (Firestore)</h3>
+                  <p class="text-xs text-stone-500">Edita el precio en línea o conmute disponibilidad en tiempo real</p>
+                </div>
+                <div class="relative w-full sm:w-48">
+                  <input type="text" id="adminTableFilterInput" oninput="UI.renderAdminTable()" placeholder="Filtrar piezas..." class="w-full text-xs pl-8 pr-3 py-1.5 rounded-xl border border-stone-200 bg-stone-50">
+                  <i data-lucide="search" class="w-3.5 h-3.5 text-stone-400 absolute left-2.5 top-1/2 -translate-y-1/2"></i>
+                </div>
+              </div>
+
+              <div class="overflow-x-auto custom-scroll max-h-[560px]">
+                <table class="w-full text-left text-xs">
+                  <thead class="bg-stone-50 text-stone-600 font-semibold sticky top-0 border-b border-stone-200">
+                    <tr>
+                      <th class="py-2.5 px-3">Pieza</th>
+                      <th class="py-2.5 px-2">Categoría</th>
+                      <th class="py-2.5 px-2">Precio ($)</th>
+                      <th class="py-2.5 px-2">Estado</th>
+                      <th class="py-2.5 px-3 text-right">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody id="adminTableBody" class="divide-y divide-stone-100 text-stone-700">
+                    <!-- Filas dinámicas en tiempo real -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ==================== PESTAÑA 2: PERSONALIZACIÓN DE SITIO / CMS (FIRESTORE) ==================== -->
+        <div id="adminTabContentCustomization" class="hidden space-y-8">
+          
+          <!-- Banner de información y acciones del CMS -->
+          <div class="bg-gradient-to-r from-amber-50 via-warmbeige/50 to-glacier-50 p-6 rounded-3xl border border-sandgold-400/40 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div class="flex items-center gap-3.5">
+              <div class="w-12 h-12 rounded-2xl bg-white text-theme-primary flex items-center justify-center shadow-xs">
+                <i data-lucide="cloud" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <h3 class="text-base font-bold text-charcoal">Personalización de Sitio / Contenido</h3>
+                <p class="text-xs text-stone-600">Almacenado en Firestore (documento: settings/siteConfig) y sincronizado en todos los dispositivos.</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <button onclick="UI.resetDefaultSiteSettings()" class="px-4 py-2.5 rounded-xl border border-stone-300 bg-white text-stone-700 hover:bg-stone-50 text-xs font-semibold transition flex items-center gap-2">
+                <i data-lucide="rotate-ccw" class="w-3.5 h-3.5 text-stone-500"></i>
+                <span>Restablecer valores por defecto</span>
+              </button>
+              <button onclick="UI.saveSiteSettingsFromForm()" class="px-5 py-2.5 rounded-xl bg-theme-primary hover:opacity-90 text-white text-xs font-bold transition shadow-sm flex items-center gap-2">
+                <i data-lucide="save" class="w-4 h-4"></i>
+                <span>Guardar Cambios en Firestore</span>
+              </button>
+            </div>
+          </div>
+
+          <form id="cmsForm" onsubmit="event.preventDefault(); UI.saveSiteSettingsFromForm();" class="space-y-8">
+
+            <!-- 1. CONTROL DE COLORES Y PALETAS DE TEMPORADA -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 shadow-xs space-y-6">
+              <div class="flex items-center justify-between border-b border-stone-100 pb-4">
+                <div class="flex items-center gap-2.5">
+                  <div class="p-2 rounded-xl bg-amber-50 text-theme-primary">
+                    <i data-lucide="paint-bucket" class="w-5 h-5"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-serif text-base font-bold text-charcoal">1. Control de Colores y Estilos de Temporada</h4>
+                    <p class="text-xs text-stone-500">Aplica paletas rápidas por temporada o ajusta cada variable CSS libremente</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- PREAJUSTES ESTACIONALES RÁPIDOS -->
+              <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-stone-700 uppercase tracking-wider">Estilos Rápidos por Temporada:</span>
+                  <span id="currentPresetBadge" class="text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider bg-glacier-100 text-glacier-700 border border-glacier-300">
+                    🎄 Navidad / Invierno
+                  </span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <!-- Preset 1: Navidad / Invierno -->
+                  <div onclick="UI.applySeasonalPreset('christmas')" id="presetCardChristmas" class="cursor-pointer p-4 rounded-2xl border-2 transition-all hover:shadow-md bg-stone-50/50 border-sandgold-400 shadow-xs">
+                    <div class="flex items-center justify-between mb-2">
+                      <span class="text-xs font-bold text-stone-800">Navidad / Invierno</span>
+                      <i data-lucide="sparkles" class="w-4 h-4 text-amber-500"></i>
+                    </div>
+                    <p class="text-[11px] text-stone-500 mb-3">Dorado arena & turquesa glacial con fondo lino</p>
+                    <div class="flex items-center gap-1.5">
+                      <div class="w-5 h-5 rounded-full border border-stone-300 shadow-2xs" style="background-color: #D4A373;" title="Dorado Arena"></div>
+                      <div class="w-5 h-5 rounded-full border border-stone-300 shadow-2xs" style="background-color: #48BFE3;" title="Turquesa Glacial"></div>
+                      <div class="w-5 h-5 rounded-full border border-stone-300 shadow-2xs" style="background-color: #FAF8F5;" title="Lino Cálido"></div>
+                      <div class="w-5 h-5 rounded-full border border-stone-300 shadow-2xs" style="background-color: #2B2B2B;" title="Carbón"></div>
+                    </div>
+                  </div>
+
+                  <!-- Preset 2: Otoño / Tradicional -->
+                  <div onclick="UI.applySeasonalPreset('autumn')" id="presetCardAutumn" class="cursor-pointer p-4 rounded-2xl border-2 transition-all hover:shadow-md bg-stone-50/50 border-stone-200">
+                    <div class="flex items-center justify-between mb-2">
+                      <span class="text-xs font-bold text-stone-800">Otoño / Tradicional</span>
+                      <i data-lucide="flame" class="w-4 h-4 text-orange-600"></i>
+                    </div>
+                    <p class="text-[11px] text-stone-500 mb-3">Terracota, naranja quemado, tierra & ocre</p>
+                    <div class="flex items-center gap-1.5">
+                      <div class="w-5 h-5 rounded-full border border-stone-300 shadow-2xs" style="background-color: #C85A32;" title="Terracota"></div>
+                      <div class="w-5 h-5 rounded-full border border-stone-300 shadow-2xs" style="background-color: #D49B35;" title="Ocre Cálido"></div>
+                      <div class="w-5 h-5 rounded-full border border-stone-300 shadow-2xs" style="background-color: #FBF8F2;" title="Tierra Marfil"></div>
+                      <div class="w-5 h-5 rounded-full border border-stone-300 shadow-2xs" style="background-color: #2C221E;" title="Café Profundo"></div>
+                    </div>
+                  </div>
+
+                  <!-- Preset 3: Primavera / Verano -->
+                  <div onclick="UI.applySeasonalPreset('spring')" id="presetCardSpring" class="cursor-pointer p-4 rounded-2xl border-2 transition-all hover:shadow-md bg-stone-50/50 border-stone-200">
+                    <div class="flex items-center justify-between mb-2">
+                      <span class="text-xs font-bold text-stone-800">Primavera / Verano</span>
+                      <i data-lucide="sun" class="w-4 h-4 text-emerald-600"></i>
+                    </div>
+                    <p class="text-[11px] text-stone-500 mb-3">Verde oliva artesanal, arena suave & rosa pálido</p>
+                    <div class="flex items-center gap-1.5">
+                      <div class="w-5 h-5 rounded-full border border-stone-300 shadow-2xs" style="background-color: #606C38;" title="Verde Oliva"></div>
+                      <div class="w-5 h-5 rounded-full border border-stone-300 shadow-2xs" style="background-color: #D98A86;" title="Rosa Arcilla"></div>
+                      <div class="w-5 h-5 rounded-full border border-stone-300 shadow-2xs" style="background-color: #FAF9F6;" title="Arena Suave"></div>
+                      <div class="w-5 h-5 rounded-full border border-stone-300 shadow-2xs" style="background-color: #283618;" title="Bosque Oscuro"></div>
+                    </div>
+                  </div>
+
+                  <!-- Preset 4: Personalizado -->
+                  <div id="presetCardCustom" class="p-4 rounded-2xl border-2 transition-all bg-stone-50/50 border-stone-200 flex flex-col justify-between">
+                    <div>
+                      <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-bold text-stone-800">Personalizado</span>
+                        <i data-lucide="sliders" class="w-4 h-4 text-stone-400"></i>
+                      </div>
+                      <p class="text-[11px] text-stone-500">Ajusta los selectores inferiores individualmente</p>
+                    </div>
+                    <div class="text-[10px] text-stone-400 font-semibold uppercase tracking-wider pt-2">
+                      Valores a medida
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Color Pickers Individuales -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
+                
+                <div class="p-4 rounded-2xl border border-stone-200 bg-stone-50/50 space-y-2">
+                  <label class="block text-xs font-bold text-stone-700">Color Primario / Acentos</label>
+                  <p class="text-[11px] text-stone-500">Botones, destacados y bordes</p>
+                  <div class="flex items-center gap-2 pt-1">
+                    <input type="color" id="cmsColorPrimaryPicker" oninput="UI.handleColorPickerChange('primary', this.value)" class="w-10 h-10 rounded-xl cursor-pointer border border-stone-300 p-0.5 bg-white">
+                    <input type="text" id="cmsColorPrimaryHex" onchange="UI.handleColorHexChange('primary', this.value)" class="flex-grow text-xs px-3 py-2 rounded-xl border border-stone-300 font-mono uppercase bg-white">
+                  </div>
+                </div>
+
+                <div class="p-4 rounded-2xl border border-stone-200 bg-stone-50/50 space-y-2">
+                  <label class="block text-xs font-bold text-stone-700">Color Secundario / Estacional</label>
+                  <p class="text-[11px] text-stone-500">Detalles de temporada y badges</p>
+                  <div class="flex items-center gap-2 pt-1">
+                    <input type="color" id="cmsColorSecondaryPicker" oninput="UI.handleColorPickerChange('secondary', this.value)" class="w-10 h-10 rounded-xl cursor-pointer border border-stone-300 p-0.5 bg-white">
+                    <input type="text" id="cmsColorSecondaryHex" onchange="UI.handleColorHexChange('secondary', this.value)" class="flex-grow text-xs px-3 py-2 rounded-xl border border-stone-300 font-mono uppercase bg-white">
+                  </div>
+                </div>
+
+                <div class="p-4 rounded-2xl border border-stone-200 bg-stone-50/50 space-y-2">
+                  <label class="block text-xs font-bold text-stone-700">Fondo de la Tienda</label>
+                  <p class="text-[11px] text-stone-500">Superficie general de la web</p>
+                  <div class="flex items-center gap-2 pt-1">
+                    <input type="color" id="cmsColorBgPicker" oninput="UI.handleColorPickerChange('bg', this.value)" class="w-10 h-10 rounded-xl cursor-pointer border border-stone-300 p-0.5 bg-white">
+                    <input type="text" id="cmsColorBgHex" onchange="UI.handleColorHexChange('bg', this.value)" class="flex-grow text-xs px-3 py-2 rounded-xl border border-stone-300 font-mono uppercase bg-white">
+                  </div>
+                </div>
+
+                <div class="p-4 rounded-2xl border border-stone-200 bg-stone-50/50 space-y-2">
+                  <label class="block text-xs font-bold text-stone-700">Texto Principal y Títulos</label>
+                  <p class="text-[11px] text-stone-500">Contraste y tipografía</p>
+                  <div class="flex items-center gap-2 pt-1">
+                    <input type="color" id="cmsColorTextPicker" oninput="UI.handleColorPickerChange('text', this.value)" class="w-10 h-10 rounded-xl cursor-pointer border border-stone-300 p-0.5 bg-white">
+                    <input type="text" id="cmsColorTextHex" onchange="UI.handleColorHexChange('text', this.value)" class="flex-grow text-xs px-3 py-2 rounded-xl border border-stone-300 font-mono uppercase bg-white">
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- 2. GESTIÓN DINÁMICA DE NAVEGACIÓN SUPERIOR (MENÚ NAVBAR) -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 shadow-xs space-y-5">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-stone-100 pb-3">
+                <div class="flex items-center gap-2.5">
+                  <div class="p-2 rounded-xl bg-amber-50 text-theme-primary">
+                    <i data-lucide="menu" class="w-5 h-5"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-serif text-base font-bold text-charcoal">2. Gestión de Navegación Superior (Navbar)</h4>
+                    <p class="text-xs text-stone-500">Administra los enlaces visibles en el encabezado de la tienda</p>
+                  </div>
+                </div>
+                <button type="button" onclick="UI.addNavigationLink()" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-charcoal text-white text-xs font-semibold hover:bg-stone-800 transition">
+                  <i data-lucide="plus" class="w-4 h-4"></i>
+                  <span>Añadir Enlace</span>
+                </button>
+              </div>
+
+              <!-- Lista de Enlaces de Navegación -->
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                  <thead class="bg-stone-50 text-stone-600 font-semibold border-b border-stone-200">
+                    <tr>
+                      <th class="py-2.5 px-3">Texto Visible</th>
+                      <th class="py-2.5 px-3">Destino (Ancla #sección o URL)</th>
+                      <th class="py-2.5 px-3 text-right">Acción</th>
+                    </tr>
+                  </thead>
+                  <tbody id="cmsNavLinksTableBody" class="divide-y divide-stone-100">
+                    <!-- Filas dinámicas generadas vía UI.renderAdminNavEditor() -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- 3. HEADER & BRANDING -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 shadow-xs space-y-5">
+              <div class="flex items-center gap-2.5 border-b border-stone-100 pb-3">
+                <i data-lucide="type" class="w-5 h-5 text-theme-primary"></i>
+                <h4 class="font-serif text-base font-bold text-charcoal">3. Identidad & Textos del Encabezado</h4>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <label class="block text-xs font-semibold text-stone-700 mb-1">Nombre de la Tienda</label>
+                  <input type="text" id="cmsBrandNameInput" placeholder="NadiArt" class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-stone-200 focus:outline-none focus:border-theme-primary bg-stone-50/50">
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-stone-700 mb-1">Badge de la Barra Superior</label>
+                  <input type="text" id="cmsBrandBadgeInput" placeholder="Taller" class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-stone-200 focus:outline-none focus:border-theme-primary bg-stone-50/50">
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-stone-700 mb-1">Subtítulo o Lema Breve</label>
+                  <input type="text" id="cmsBrandSubtitleInput" placeholder="Cerámica, relieve & tesoros artesanales" class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-stone-200 focus:outline-none focus:border-theme-primary bg-stone-50/50">
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. SECCIÓN HERO / PORTADA -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 shadow-xs space-y-5">
+              <div class="flex items-center gap-2.5 border-b border-stone-100 pb-3">
+                <i data-lucide="sparkles" class="w-5 h-5 text-theme-primary"></i>
+                <h4 class="font-serif text-base font-bold text-charcoal">4. Sección Hero / Portada</h4>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-semibold text-stone-700 mb-1">Badge de Temporada</label>
+                  <input type="text" id="cmsHeroBadgeInput" placeholder="Edición Limitada Hecha a Mano" class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-stone-200 focus:outline-none focus:border-theme-primary bg-stone-50/50">
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-stone-700 mb-1">Título Principal de Bienvenida</label>
+                  <input type="text" id="cmsHeroTitleInput" placeholder="Detalles únicos que cuentan una historia" class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-stone-200 focus:outline-none focus:border-theme-primary bg-stone-50/50">
+                </div>
+                <div class="md:col-span-2">
+                  <label class="block text-xs font-semibold text-stone-700 mb-1">Subtítulo o Mensaje Descriptivo</label>
+                  <textarea id="cmsHeroSubtitleInput" rows="2" placeholder="Cerámica blanca, texturas en relieve..." class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-stone-200 focus:outline-none focus:border-theme-primary bg-stone-50/50"></textarea>
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-stone-700 mb-1">Texto Botón Catálogo (CTA)</label>
+                  <input type="text" id="cmsHeroCtaTextInput" placeholder="Ver Piezas Disponibles" class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-stone-200 focus:outline-none focus:border-theme-primary bg-stone-50/50">
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-stone-700 mb-1">Texto Botón WhatsApp</label>
+                  <input type="text" id="cmsHeroWhatsAppTextInput" placeholder="Pregúntame por WhatsApp" class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-stone-200 focus:outline-none focus:border-theme-primary bg-stone-50/50">
+                </div>
+              </div>
+            </div>
+
+            <!-- 5. SECCIÓN SOBRE MÍ / EL TALLER -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 shadow-xs space-y-5">
+              <div class="flex items-center gap-2.5 border-b border-stone-100 pb-3">
+                <i data-lucide="heart" class="w-5 h-5 text-theme-primary"></i>
+                <h4 class="font-serif text-base font-bold text-charcoal">5. Sección "Sobre Mí / El Taller"</h4>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-semibold text-stone-700 mb-1">Subtítulo / Badge de Sección</label>
+                  <input type="text" id="cmsAboutBadgeInput" placeholder="El alma del taller" class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-stone-200 focus:outline-none focus:border-theme-primary bg-stone-50/50">
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-stone-700 mb-1">Título de la Sección</label>
+                  <input type="text" id="cmsAboutTitleInput" placeholder="Creando con las manos y el corazón" class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-stone-200 focus:outline-none focus:border-theme-primary bg-stone-50/50">
+                </div>
+                <div class="md:col-span-2">
+                  <label class="block text-xs font-semibold text-stone-700 mb-1">Cita o Frase Destacada</label>
+                  <textarea id="cmsAboutQuoteInput" rows="2" placeholder='"Ahorita que tengo un poco más de tiempo..."' class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-stone-200 focus:outline-none focus:border-theme-primary bg-stone-50/50"></textarea>
+                </div>
+                <div class="md:col-span-2">
+                  <label class="block text-xs font-semibold text-stone-700 mb-1">Párrafo Descriptivo de Historia & Proceso</label>
+                  <textarea id="cmsAboutDescInput" rows="3" placeholder="Cada estrella, copo, esfera y plato lleva un proceso cuidadoso..." class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-stone-200 focus:outline-none focus:border-theme-primary bg-stone-50/50"></textarea>
+                </div>
+                <div class="md:col-span-2">
+                  <label class="block text-xs font-semibold text-stone-700 mb-1">Notas de Entrega o Envíos</label>
+                  <input type="text" id="cmsAboutDeliveryNoteInput" placeholder="Entregas locales y envíos a convenir" class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-stone-200 focus:outline-none focus:border-theme-primary bg-stone-50/50">
+                </div>
+              </div>
+            </div>
+
+            <!-- 6. CONTACTO, REDES SOCIALES & FOOTER DINÁMICOS -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 shadow-xs space-y-6">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-stone-100 pb-3">
+                <div class="flex items-center gap-2.5">
+                  <div class="p-2 rounded-xl bg-amber-50 text-theme-primary">
+                    <i data-lucide="share-2" class="w-5 h-5"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-serif text-base font-bold text-charcoal">6. Canales de Contacto, Redes Sociales & Horarios</h4>
+                    <p class="text-xs text-stone-500">Activa, desactiva o agrega cualquier red social o canal de venta</p>
+                  </div>
+                </div>
+                <button type="button" onclick="UI.addSocialChannel()" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-charcoal text-white text-xs font-semibold hover:bg-stone-800 transition">
+                  <i data-lucide="plus" class="w-4 h-4"></i>
+                  <span>Añadir Red / Canal</span>
+                </button>
+              </div>
+
+              <!-- Lista Interactiva de Redes y Canales -->
+              <div class="space-y-3" id="cmsSocialLinksContainer">
+                <!-- Renderizado dinámico de canales vía UI.renderAdminSocialEditor() -->
+              </div>
+
+              <!-- Configuración de Horario de Atención y Mensaje WhatsApp -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t border-stone-100">
+                
+                <div class="p-4 rounded-2xl border border-stone-200 bg-stone-50/50 space-y-3">
+                  <div class="flex items-center justify-between">
+                    <label class="text-xs font-bold text-stone-700">Horario de Atención en Tienda</label>
+                    <label class="flex items-center gap-1.5 text-xs text-stone-600 cursor-pointer">
+                      <input type="checkbox" id="cmsStoreScheduleActive" onchange="UI.siteSettings.storeScheduleActive = this.checked;" class="rounded text-theme-primary focus:ring-theme-primary h-4 w-4">
+                      <span>Mostrar en la web</span>
+                    </label>
+                  </div>
+                  <input type="text" id="cmsStoreScheduleInput" placeholder="Lunes a Sábado: 10:00 - 19:00 hrs" class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-stone-200 focus:outline-none focus:border-theme-primary bg-white">
+                  <p class="text-[10px] text-stone-400">Si se desactiva o se deja vacío, no se renderizará en el pie de página público.</p>
+                </div>
+
+                <div class="p-4 rounded-2xl border border-stone-200 bg-stone-50/50 space-y-3">
+                  <label class="block text-xs font-bold text-stone-700">Mensaje Predeterminado de Pedido por WhatsApp</label>
+                  <input type="text" id="cmsWhatsappDefaultMessageInput" placeholder="¡Hola NadiArt! Me gustaría información sobre tus piezas..." class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-stone-200 focus:outline-none focus:border-theme-primary bg-white">
+                  <p class="text-[10px] text-stone-400">Texto inicial con el que el cliente abre conversación.</p>
+                </div>
+
+                <div class="md:col-span-2">
+                  <label class="block text-xs font-semibold text-stone-700 mb-1">Texto de Derechos Reservados / Pie de Página</label>
+                  <input type="text" id="cmsFooterCopyrightInput" placeholder="© 2026 NadiArt. Todos los derechos reservados." class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-stone-200 focus:outline-none focus:border-theme-primary bg-stone-50/50">
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Botones de Guardado al Final -->
+            <div class="flex flex-col sm:flex-row items-center justify-end gap-3 pt-4 border-t border-stone-200">
+              <button type="button" onclick="UI.resetDefaultSiteSettings()" class="w-full sm:w-auto px-5 py-3 rounded-xl border border-stone-300 bg-white text-stone-700 hover:bg-stone-50 text-xs font-semibold transition flex items-center justify-center gap-2">
+                <i data-lucide="rotate-ccw" class="w-4 h-4 text-stone-500"></i>
+                <span>Restablecer valores por defecto</span>
+              </button>
+              <button type="submit" class="w-full sm:w-auto px-8 py-3 rounded-xl bg-theme-primary hover:opacity-90 text-white text-xs font-bold uppercase tracking-wider transition shadow-md flex items-center justify-center gap-2">
+                <i data-lucide="save" class="w-4 h-4"></i>
+                <span>Guardar Cambios en Firestore</span>
+              </button>
+            </div>
+
+          </form>
+
+        </div>
+
+        <!-- ==================== PESTAÑA 3: SEGURIDAD & ACCESO ==================== -->
+        <div id="adminTabContentSecurity" class="hidden">
+          <div class="max-w-xl mx-auto bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 shadow-xs space-y-6">
+            <div class="flex items-center gap-2.5 border-b border-stone-100 pb-3">
+              <div class="p-2 rounded-xl bg-amber-50 text-theme-primary">
+                <i data-lucide="key-round" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h3 class="font-serif text-base font-bold text-charcoal">Actualizar Credenciales</h3>
+                <p class="text-xs text-stone-500">Protege tu panel administrativo con nuevas credenciales privadas.</p>
+              </div>
+            </div>
+
+            <div class="space-y-4">
+              <!-- REGLA DE PRIVACIDAD CRÍTICA: Campos limpios y neutrales sin revelar el usuario actual -->
+              <div>
+                <label class="block text-xs font-semibold text-stone-700 mb-1">Nuevo Usuario</label>
+                <input type="text" id="settingNewUsername" placeholder="Ingresa nuevo usuario" class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-stone-300 bg-stone-50/50 focus:bg-white focus:outline-none focus:border-theme-primary">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-stone-700 mb-1">Nueva Contraseña</label>
+                <input type="password" id="settingNewPassword" placeholder="••••••••" class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-stone-300 bg-stone-50/50 focus:bg-white focus:outline-none focus:border-theme-primary">
+              </div>
+              <button onclick="UI.saveAdminCredentials()" class="w-full py-3 rounded-xl bg-charcoal hover:bg-stone-800 text-white text-xs font-semibold tracking-wider uppercase transition shadow-sm flex items-center justify-center gap-2">
+                <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i>
+                <span>Actualizar Credenciales</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ==================== MODAL: LOGIN DE ADMINISTRACIÓN ==================== -->
+  <div id="loginModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-sm w-full border border-warmbeige shadow-2xl relative">
+      
+      <button onclick="UI.closeLoginModal()" class="absolute top-4 right-4 text-stone-400 hover:text-stone-700 p-1">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="text-center space-y-2 mb-6">
+        <div class="w-12 h-12 rounded-2xl bg-amber-50 border border-theme-primary/30 text-theme-primary flex items-center justify-center mx-auto mb-2">
+          <i data-lucide="shield-check" class="w-6 h-6"></i>
+        </div>
+        <!-- REGLA DE PRIVACIDAD CRÍTICA: Texto neutral, sin mostrar nombres de usuario -->
+        <h3 class="font-serif text-xl font-bold text-charcoal">Panel de Gestión</h3>
+        <p class="text-xs text-stone-500">Ingresa tus credenciales para administrar la tienda</p>
+      </div>
+
+      <form onsubmit="UI.handleLoginSubmit(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-stone-700 mb-1">Usuario</label>
+          <!-- REGLA DE PRIVACIDAD CRÍTICA: Placeholder neutral, sin usuario por defecto visible -->
+          <input type="text" id="loginUsernameInput" required class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-stone-200 focus:outline-none focus:border-theme-primary bg-stone-50/50" placeholder="Ingresa tu usuario">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-stone-700 mb-1">Contraseña</label>
+          <input type="password" id="loginPasswordInput" required class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-stone-200 focus:outline-none focus:border-theme-primary bg-stone-50/50" placeholder="••••••••">
+        </div>
+
+        <div id="loginErrorMessage" class="hidden text-xs text-rose-600 bg-rose-50 p-2.5 rounded-xl border border-rose-200 text-center font-medium">
+          Usuario o contraseña incorrectos
+        </div>
+
+        <button type="submit" class="w-full py-3 rounded-xl bg-charcoal hover:bg-stone-800 text-white font-semibold text-xs tracking-wider uppercase transition shadow-md">
+          Entrar al Panel
+        </button>
+      </form>
+
+      <div class="mt-4 text-center">
+        <p class="text-[11px] text-stone-400">Acceso exclusivo de administración</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: DETALLE DE PRODUCTO ==================== -->
+  <div id="productDetailModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl overflow-hidden max-w-2xl w-full border border-warmbeige shadow-2xl relative" onclick="event.stopPropagation()">
+      
+      <button onclick="UI.closeDetailModal()" class="absolute top-4 right-4 z-10 bg-white/80 backdrop-blur-xs text-stone-700 hover:text-stone-900 p-2 rounded-full shadow-md">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="grid grid-cols-1 md:grid-cols-2">
+        <div class="aspect-square bg-stone-100 overflow-hidden relative">
+          <img id="detailModalImage" src="" alt="" class="w-full h-full object-cover">
+          <span id="detailModalBadge" class="absolute bottom-3 left-3 text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
+            Disponible
+          </span>
+        </div>
+
+        <div class="p-6 sm:p-8 flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <span id="detailModalCategory" class="text-[11px] uppercase tracking-widest font-semibold text-theme-primary">Categoría</span>
+            <h3 id="detailModalTitle" class="font-serif text-2xl font-bold text-charcoal">Nombre de la pieza</h3>
+            <p id="detailModalPrice" class="text-2xl font-bold text-theme-primary">$0 MXN</p>
+            <div class="w-12 h-0.5 bg-stone-200"></div>
+            <p id="detailModalDesc" class="text-xs leading-relaxed text-stone-600">Descripción detallada...</p>
+          </div>
+
+          <div class="pt-4 space-y-2">
+            <button id="detailModalWhatsAppBtn" class="w-full py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs uppercase tracking-wider transition shadow-md flex items-center justify-center gap-2">
+              <i data-lucide="message-circle" class="w-4 h-4"></i>
+              <span>Lo quiero / Pedir por WhatsApp</span>
+            </button>
+            <p class="text-[10px] text-center text-stone-400">Acuerda pago, envío o entrega personal directamente</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-white border-t border-warmbeige py-10 mt-auto text-stone-600 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2">
+          <span class="font-serif font-bold text-charcoal text-base">Nadi<span class="text-theme-primary">Art</span></span>
+          <span class="text-stone-400">|</span>
+          <span id="cmsFooterSubtitle" class="text-stone-500">Hecho a mano con creatividad y detalle</span>
+        </div>
+        
+        <!-- Horarios y Redes Sociales Dinámicas (solo activas) -->
+        <div class="flex flex-wrap items-center gap-4 text-xs">
+          <div id="cmsStoreScheduleContainer" class="flex items-center gap-3">
+            <span id="cmsStoreScheduleDisplay" class="text-stone-500 font-medium">Lunes a Sábado: 10:00 - 19:00 hrs</span>
+            <span class="text-stone-300">|</span>
+          </div>
+
+          <div id="dynamicFooterSocialLinks" class="flex flex-wrap items-center gap-3">
+            <!-- Renderizado dinámico vía UI.renderFooterSocialLinks() -->
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-stone-100 text-stone-400">
+        <button onclick="UI.handleAdminNavAction()" class="text-xs text-stone-500 hover:text-theme-primary transition underline cursor-pointer">
+          Acceso Administración
+        </button>
+        <p id="cmsFooterCopyrightDisplay">© 2026 NadiArt. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== INTEGRACIÓN FIREBASE BACKEND (CDN v10+) ==================== -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import {
+      getFirestore,
+      collection,
+      doc,
+      getDoc,
+      getDocs,
+      setDoc,
+      addDoc,
+      updateDoc,
+      deleteDoc,
+      onSnapshot,
+      query,
+      orderBy,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    import {
+      getStorage,
+      ref,
+      uploadBytes,
+      getDownloadURL
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+
+    // 1. Configuración Oficial del Proyecto Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyCQYhtjFnGzRL4hcBfxHcDnAhXzLwKg198",
+      authDomain: "nadiart-tienda.firebaseapp.com",
+      projectId: "nadiart-tienda",
+      storageBucket: "nadiart-tienda.firebasestorage.app",
+      messagingSenderId: "538895644167",
+      appId: "1:538895644167:web:0371961e0cb3e25e99dca2"
+    };
+
+    // 2. Inicialización de Firebase App, Firestore y Cloud Storage
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
+
+    // Claves de respaldo y autenticación
+    const STORAGE_KEY_AUTH = 'nadiart_auth_credentials';
+    const STORAGE_KEY_PRODUCTS_FALLBACK = 'nadiart_products_db';
+    const STORAGE_KEY_SETTINGS_FALLBACK = 'nadiart_site_settings';
+
+    // Productos iniciales de muestra
+    const INITIAL_PRODUCTS = [
+      {
+        title: 'Esferas & Adornos Navideños en Cerámica',
+        price: 95,
+        category: 'Navidad & Temporada',
+        status: 'Disponible',
+        image: 'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&q=80&w=800',
+        imageUrl: 'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&q=80&w=800',
+        desc: 'Adornos hechos a mano con relieves navideños finos (pinos, casitas y copos de nieve). Detalles esmaltados en dorado fino y turquesa invernal. Vienen con lazo para colgar.'
+      },
+      {
+        title: 'Adorno Estrella "Merry Christmas" en Relieve',
+        price: 110,
+        category: 'Navidad & Temporada',
+        status: 'Disponible',
+        image: 'https://images.unsplash.com/photo-1512474932049-78ac69ede12c?auto=format&fit=crop&q=80&w=800',
+        imageUrl: 'https://images.unsplash.com/photo-1512474932049-78ac69ede12c?auto=format&fit=crop&q=80&w=800',
+        desc: 'Estrella en cerámica blanca con silueta de villa invernal y pinos en relieve. Acabado blanco mate con grabado artesanal de alta durabilidad.'
+      },
+      {
+        title: 'Copo de Nieve Glacial Cerámico',
+        price: 90,
+        category: 'Navidad & Temporada',
+        status: 'Disponible',
+        image: 'https://images.unsplash.com/photo-1513297887119-d46091b24bfa?auto=format&fit=crop&q=80&w=800',
+        imageUrl: 'https://images.unsplash.com/photo-1513297887119-d46091b24bfa?auto=format&fit=crop&q=80&w=800',
+        desc: 'Medallón circular con relieve profundo de copo de nieve resaltado en esmalte turquesa aguamarina. Una pieza fresca y luminosa para el árbol o un rincón especial.'
+      },
+      {
+        title: 'Servilletero Navideño Copo Dorado',
+        price: 120,
+        category: 'Navidad & Temporada',
+        status: 'Disponible',
+        image: 'https://images.unsplash.com/photo-1576014131341-fe1486fb2475?auto=format&fit=crop&q=80&w=800',
+        imageUrl: 'https://images.unsplash.com/photo-1576014131341-fe1486fb2475?auto=format&fit=crop&q=80&w=800',
+        desc: 'Aro servilletero cerámico con flor/copo modelado a mano y baño dorado metalizado. Dale un toque de elegancia y calidez a tu mesa en las fiestas.'
+      },
+      {
+        title: 'Cuadro en Relieve Botánico Texturizado',
+        price: 320,
+        category: 'Cerámica & Relieve',
+        status: 'Disponible',
+        image: 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&q=80&w=800',
+        imageUrl: 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&q=80&w=800',
+        desc: 'Pieza decorativa de pared con textura táctil en relieve de pasta cerámica y pigmentos minerales neutros. Hecho con espátula y amor creativo.'
+      },
+      {
+        title: 'Platillo Joyero con Sello de Gatito NadiArt',
+        price: 140,
+        category: 'Cerámica & Relieve',
+        status: 'Disponible',
+        image: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&q=80&w=800',
+        imageUrl: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&q=80&w=800',
+        desc: 'Platito porta anillos y accesorios con el sello original del gatito grabado en la base y bordes irregulares orgánicos en tono oro viejo.'
+      },
+      {
+        title: 'Espejo Vintage Curado de Colección',
+        price: 250,
+        category: 'Bazar & Oportunidades',
+        status: 'Agotado',
+        image: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&q=80&w=800',
+        imageUrl: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&q=80&w=800',
+        desc: 'Pieza única de bazar en excelente estado estético. Marco labrado estilo clásico para decoración de recibidor o tocador.'
+      }
+    ];
+
+    // Preajustes de Paletas Estacionales
+    const SEASONAL_PRESETS = {
+      christmas: {
+        key: 'christmas',
+        name: 'Navidad / Invierno',
+        tag: '🎄 Edición Invernal',
+        colorPrimary: '#D4A373',
+        colorSecondary: '#48BFE3',
+        colorBg: '#FAF8F5',
+        colorText: '#2B2B2B'
+      },
+      autumn: {
+        key: 'autumn',
+        name: 'Otoño / Tradicional',
+        tag: '🍂 Tonos Tierra & Ocre',
+        colorPrimary: '#C85A32',
+        colorSecondary: '#D49B35',
+        colorBg: '#FBF8F2',
+        colorText: '#2C221E'
+      },
+      spring: {
+        key: 'spring',
+        name: 'Primavera / Verano',
+        tag: '🌸 Natural & Botánico',
+        colorPrimary: '#606C38',
+        colorSecondary: '#D98A86',
+        colorBg: '#FAF9F6',
+        colorText: '#283618'
+      }
+    };
+
+    // Configuración completa por defecto de Sitio / CMS
+    const DEFAULT_SITE_SETTINGS = {
+      appearance: {
+        theme: 'christmas',
+        colorPrimary: '#D4A373',
+        colorSecondary: '#48BFE3',
+        colorBg: '#FAF8F5',
+        colorText: '#2B2B2B'
+      },
+      colorPrimary: '#D4A373',
+      colorSecondary: '#48BFE3',
+      colorBg: '#FAF8F5',
+      colorText: '#2B2B2B',
+
+      brandName: 'NadiArt',
+      brandSubtitle: 'Cerámica, relieve & tesoros artesanales',
+      brandBadge: 'Taller',
+
+      navigation: [
+        { id: 'nav_1', text: 'Catálogo', link: '#catalogo' },
+        { id: 'nav_2', text: 'El Taller', link: '#taller' },
+        { id: 'nav_3', text: 'Contacto', link: '#contacto' }
+      ],
+
+      heroBadge: 'Edición Limitada Hecha a Mano',
+      heroTitle: 'Detalles únicos que cuentan una historia',
+      heroSubtitle: 'Cerámica blanca, texturas en relieve invernales con destellos en dorado arena y toques en turquesa glacial. Cada pieza es modelada con calma y amor para llenar de luz y arte tu hogar.',
+      heroCtaText: 'Ver Piezas Disponibles',
+      heroWhatsAppText: 'Pregúntame por WhatsApp',
+
+      aboutBadge: 'El alma del taller',
+      aboutTitle: 'Creando con las manos y el corazón',
+      aboutQuote: '"Ahorita que tengo un poco más de tiempo, he decidido compartir mis piezas. Hago cerámica, cuadros con relieve y aprovecho para sacar todo mi lado creativo."',
+      aboutDesc: 'Cada estrella, copo, esfera y plato lleva un proceso cuidadoso de modelado, secado, esmaltado y pintado fino con acabados en dorado arena y esmaltes cristalinos en turquesa. Además, encontrarás artículos curados y oportunidades en excelente estado.',
+      aboutDeliveryNote: 'Entregas locales y envíos a convenir',
+
+      whatsappNumber: '5214620000000',
+      whatsappDefaultMessage: '¡Hola NadiArt! Estuve viendo el catálogo en tu tienda y me gustaría solicitar información sobre piezas y pedidos.',
+      socialLinks: [
+        { id: 'soc_1', platform: 'whatsapp', label: 'WhatsApp', url: 'https://wa.me/5214620000000', active: true },
+        { id: 'soc_2', platform: 'instagram', label: 'Instagram', url: 'https://instagram.com/nadiart', active: true },
+        { id: 'soc_3', platform: 'facebook', label: 'Facebook', url: 'https://facebook.com/nadiart', active: true },
+        { id: 'soc_4', platform: 'tiktok', label: 'TikTok', url: '', active: false },
+        { id: 'soc_5', platform: 'youtube', label: 'YouTube', url: '', active: false }
+      ],
+
+      storeSchedule: 'Lunes a Sábado: 10:00 - 19:00 hrs',
+      storeScheduleActive: true,
+
+      footerCopyright: '© 2026 NadiArt. Todos los derechos reservados.'
+    };
+
+    /**
+     * =========================================================================
+     * CAPA DE DATOS (DATA SERVICE) CON FIREBASE FIRESTORE & CLOUD STORAGE
+     * =========================================================================
+     */
+    const DataService = {
+      
+      /**
+       * Subir imagen a Firebase Cloud Storage en la ruta:
+       * products/${Date.now()}_${file.name}
+       * Devuelve la URL pública de descarga (getDownloadURL).
+       */
+      async uploadProductImage(file) {
+        if (!file) throw new Error('No se proporcionó ningún archivo de imagen');
+        const cleanName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+        const storagePath = `products/${Date.now()}_${cleanName}`;
+        const imageRef = ref(storage, storagePath);
+        
+        const snapshot = await uploadBytes(imageRef, file);
+        const downloadUrl = await getDownloadURL(snapshot.ref);
+        return downloadUrl;
+      },
+
+      /**
+       * Guardar un nuevo producto en Firebase Firestore (colección: products)
+       */
+      async addProduct(productData) {
+        const payload = {
+          ...productData,
+          imageUrl: productData.imageUrl || productData.image,
+          image: productData.imageUrl || productData.image,
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp()
+        };
+        const docRef = await addDoc(collection(db, "products"), payload);
+        return { id: docRef.id, ...payload };
+      },
+
+      /**
+       * Actualizar un producto existente en Firebase Firestore
+       */
+      async updateProduct(id, updatedFields) {
+        const docRef = doc(db, "products", id);
+        const payload = {
+          ...updatedFields,
+          updatedAt: serverTimestamp()
+        };
+        if (updatedFields.imageUrl || updatedFields.image) {
+          payload.imageUrl = updatedFields.imageUrl || updatedFields.image;
+          payload.image = updatedFields.imageUrl || updatedFields.image;
+        }
+        await updateDoc(docRef, payload);
+        return { id, ...payload };
+      },
+
+      /**
+       * Eliminar un producto en Firebase Firestore
+       */
+      async deleteProduct(id) {
+        const docRef = doc(db, "products", id);
+        await deleteDoc(docRef);
+        return id;
+      },
+
+      /**
+       * Guardar configuración del sitio en Firestore (settings/siteConfig)
+       */
+      async saveSiteSettings(settings) {
+        const docRef = doc(db, "settings", "siteConfig");
+        await setDoc(docRef, settings, { merge: true });
+        localStorage.setItem(STORAGE_KEY_SETTINGS_FALLBACK, JSON.stringify(settings));
+        return settings;
+      },
+
+      /**
+       * Inicializar escucha en tiempo real de productos (onSnapshot)
+       */
+      listenProducts(callback, onError) {
+        try {
+          const q = query(collection(db, "products"), orderBy("createdAt", "desc"));
+          return onSnapshot(q, (snapshot) => {
+            const items = snapshot.docs.map(docSnap => ({
+              id: docSnap.id,
+              ...docSnap.data(),
+              image: docSnap.data().imageUrl || docSnap.data().image || 'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&q=80&w=800'
+            }));
+            callback(items, snapshot.empty);
+          }, onError);
+        } catch (err) {
+          if (onError) onError(err);
+        }
+      },
+
+      /**
+       * Inicializar escucha en tiempo real de configuración del sitio (onSnapshot)
+       */
+      listenSiteSettings(callback, onError) {
+        try {
+          const docRef = doc(db, "settings", "siteConfig");
+          return onSnapshot(docRef, (docSnap) => {
+            if (docSnap.exists()) {
+              callback(docSnap.data());
+            } else {
+              callback(null);
+            }
+          }, onError);
+        } catch (err) {
+          if (onError) onError(err);
+        }
+      }
+    };
+
+    /**
+     * =========================================================================
+     * AUTENTICACIÓN LOCAL SEGURA (ADMIN PRIVADO)
+     * =========================================================================
+     */
+    const AuthService = {
+      getDefaultCredentials() {
+        return { username: 'nadielope', password: 'pepelechuy' };
+      },
+
+      getCredentials() {
+        try {
+          const saved = localStorage.getItem(STORAGE_KEY_AUTH);
+          return saved ? JSON.parse(saved) : this.getDefaultCredentials();
+        } catch {
+          return this.getDefaultCredentials();
+        }
+      },
+
+      updateCredentials(newUsername, newPassword) {
+        const current = this.getCredentials();
+        const updated = {
+          username: newUsername ? newUsername.trim() : current.username,
+          password: newPassword ? newPassword.trim() : current.password
+        };
+        localStorage.setItem(STORAGE_KEY_AUTH, JSON.stringify(updated));
+        return true;
+      },
+
+      login(userInput, passInput) {
+        const creds = this.getCredentials();
+        const isValid = userInput.trim() === creds.username && passInput.trim() === creds.password;
+        if (isValid) {
+          sessionStorage.setItem('nadiart_session', 'active');
+        }
+        return isValid;
+      },
+
+      isLoggedIn() {
+        return sessionStorage.getItem('nadiart_session') === 'active';
+      },
+
+      logout() {
+        sessionStorage.removeItem('nadiart_session');
+        UI.showClientView();
+        UI.updateNavButtonState();
+        UI.showToast('Sesión de administración finalizada');
+      }
+    };
+
+    /**
+     * =========================================================================
+     * CONTROLADOR DE INTERFAZ DE USUARIO (UI CONTROLLER)
+     * =========================================================================
+     */
+    const UI = {
+      products: [],
+      siteSettings: JSON.parse(JSON.stringify(DEFAULT_SITE_SETTINGS)),
+      currentCategory: 'all',
+      selectedImageFile: null,
+      currentBase64Image: '',
+      currentAdminTab: 'inventory',
+      isSavingProduct: false,
+
+      async init() {
+        // Carga inicial y respaldo local
+        try {
+          const localStored = localStorage.getItem(STORAGE_KEY_SETTINGS_FALLBACK);
+          if (localStored) {
+            this.siteSettings = { ...DEFAULT_SITE_SETTINGS, ...JSON.parse(localStored) };
+          }
+        } catch (e) {
+          console.warn("Fallback local:", e);
+        }
+
+        this.applySiteSettingsToDOM(this.siteSettings);
+        this.populateCMSForm(this.siteSettings);
+        this.updateNavButtonState();
+
+        // 1. Escuchar Firestore: Configuración del Sitio en Tiempo Real
+        DataService.listenSiteSettings((remoteSettings) => {
+          if (remoteSettings) {
+            this.siteSettings = {
+              ...DEFAULT_SITE_SETTINGS,
+              ...remoteSettings,
+              appearance: { ...DEFAULT_SITE_SETTINGS.appearance, ...(remoteSettings.appearance || {}) },
+              navigation: Array.isArray(remoteSettings.navigation) ? remoteSettings.navigation : DEFAULT_SITE_SETTINGS.navigation,
+              socialLinks: Array.isArray(remoteSettings.socialLinks) ? remoteSettings.socialLinks : DEFAULT_SITE_SETTINGS.socialLinks
+            };
+            this.applySiteSettingsToDOM(this.siteSettings);
+            if (this.currentAdminTab === 'customization') {
+              this.populateCMSForm(this.siteSettings);
+            }
+          } else {
+            // Documento aún no creado en Firestore, sembrar valor por defecto
+            DataService.saveSiteSettings(DEFAULT_SITE_SETTINGS);
+          }
+        }, (err) => {
+          console.warn("Aviso en settings de Firestore:", err);
+        });
+
+        // 2. Escuchar Firestore: Productos en Tiempo Real
+        DataService.listenProducts((items, isEmpty) => {
+          if (isEmpty) {
+            // Colección vacía: sembrar productos muestra iniciales
+            this.seedInitialProductsIfEmpty();
+          } else {
+            this.products = items;
+            this.renderCatalog();
+            this.renderAdminTable();
+            this.updateStats();
+          }
+        }, (err) => {
+          console.warn("Aviso en products de Firestore:", err);
+          // Usar respaldo local si fuera necesario
+          if (this.products.length === 0) {
+            this.products = INITIAL_PRODUCTS.map((p, i) => ({ id: 'local_' + i, ...p }));
+            this.renderCatalog();
+            this.renderAdminTable();
+            this.updateStats();
+          }
+        });
+
+        lucide.createIcons();
+      },
+
+      // Sembrar productos iniciales si la colección está vacía
+      async seedInitialProductsIfEmpty() {
+        console.log("Sembrando productos iniciales en Firestore...");
+        try {
+          for (const prod of INITIAL_PRODUCTS) {
+            await DataService.addProduct(prod);
+          }
+        } catch (e) {
+          console.warn("Error sembrando productos iniciales:", e);
+          this.products = INITIAL_PRODUCTS.map((p, i) => ({ id: 'init_' + i, ...p }));
+          this.renderCatalog();
+          this.renderAdminTable();
+          this.updateStats();
+        }
+      },
+
+      // Inyección y aplicación de CSS Variables y Textos
+      applySiteSettingsToDOM(settings) {
+        const colors = settings.appearance || {
+          colorPrimary: settings.colorPrimary || '#D4A373',
+          colorSecondary: settings.colorSecondary || '#48BFE3',
+          colorBg: settings.colorBg || '#FAF8F5',
+          colorText: settings.colorText || '#2B2B2B'
+        };
+
+        // 1. Inyección de CSS Variables en el elemento :root
+        const root = document.documentElement;
+        root.style.setProperty('--color-primary', colors.colorPrimary || '#D4A373');
+        root.style.setProperty('--color-secondary', colors.colorSecondary || '#48BFE3');
+        root.style.setProperty('--color-bg', colors.colorBg || '#FAF8F5');
+        root.style.setProperty('--color-text', colors.colorText || '#2B2B2B');
+
+        // 2. Textos Header & Branding
+        const brandNameEl = document.getElementById('cmsBrandName');
+        if (brandNameEl) {
+          brandNameEl.innerHTML = `${settings.brandName || 'Nadi'}<span class="text-theme-primary font-medium">Art</span>`;
+        }
+        const brandBadgeEl = document.getElementById('cmsBrandBadge');
+        if (brandBadgeEl) brandBadgeEl.textContent = settings.brandBadge || 'Taller';
+        const brandSubtitleEl = document.getElementById('cmsBrandSubtitle');
+        if (brandSubtitleEl) brandSubtitleEl.textContent = settings.brandSubtitle || 'Cerámica, relieve & tesoros artesanales';
+
+        // 3. Textos Hero / Portada
+        const heroBadgeEl = document.getElementById('cmsHeroBadge');
+        if (heroBadgeEl) heroBadgeEl.textContent = settings.heroBadge || 'Edición Limitada Hecha a Mano';
+        
+        const heroTitleEl = document.getElementById('cmsHeroTitle');
+        if (heroTitleEl) {
+          heroTitleEl.innerHTML = `${settings.heroTitle || 'Detalles únicos que cuentan una'} <span class="italic font-normal text-theme-primary">historia</span>`;
+        }
+        const heroSubtitleEl = document.getElementById('cmsHeroSubtitle');
+        if (heroSubtitleEl) heroSubtitleEl.textContent = settings.heroSubtitle || '';
+        
+        const heroCtaEl = document.getElementById('cmsHeroCtaText');
+        if (heroCtaEl) heroCtaEl.textContent = settings.heroCtaText || 'Ver Piezas Disponibles';
+        const heroWaEl = document.getElementById('cmsHeroWhatsAppText');
+        if (heroWaEl) heroWaEl.textContent = settings.heroWhatsAppText || 'Pregúntame por WhatsApp';
+
+        // 4. Textos Sobre Mí / El Taller
+        const aboutBadgeEl = document.getElementById('cmsAboutBadge');
+        if (aboutBadgeEl) aboutBadgeEl.textContent = settings.aboutBadge || 'El alma del taller';
+        const aboutTitleEl = document.getElementById('cmsAboutTitle');
+        if (aboutTitleEl) aboutTitleEl.textContent = settings.aboutTitle || 'Creando con las manos y el corazón';
+        const aboutQuoteEl = document.getElementById('cmsAboutQuote');
+        if (aboutQuoteEl) aboutQuoteEl.textContent = settings.aboutQuote || '';
+        const aboutDescEl = document.getElementById('cmsAboutDesc');
+        if (aboutDescEl) aboutDescEl.textContent = settings.aboutDesc || '';
+        const aboutDelEl = document.getElementById('cmsAboutDeliveryNote');
+        if (aboutDelEl) aboutDelEl.textContent = settings.aboutDeliveryNote || 'Entregas locales y envíos a convenir';
+
+        // 5. Horario de Atención
+        const schedContainer = document.getElementById('cmsStoreScheduleContainer');
+        const schedEl = document.getElementById('cmsStoreScheduleDisplay');
+        const isSchedActive = settings.storeScheduleActive !== false && (settings.storeSchedule || '').trim().length > 0;
+        
+        if (schedContainer && schedEl) {
+          if (isSchedActive) {
+            schedContainer.classList.remove('hidden');
+            schedEl.textContent = settings.storeSchedule;
+          } else {
+            schedContainer.classList.add('hidden');
+          }
+        }
+
+        // 6. Footer Copyright
+        const copyEl = document.getElementById('cmsFooterCopyrightDisplay');
+        if (copyEl) copyEl.textContent = settings.footerCopyright || '© 2026 NadiArt. Todos los derechos reservados.';
+
+        // Stat de teléfono en Dashboard
+        const statPhone = document.getElementById('statWhatsAppPhone');
+        if (statPhone) statPhone.textContent = '+' + (settings.whatsappNumber || '52...');
+
+        // Renderizado dinámico de navbar y redes
+        this.renderDynamicNavbar();
+        this.renderFooterSocialLinks();
+        this.updatePresetCardHighlights(settings.appearance?.theme || 'custom');
+
+        lucide.createIcons();
+      },
+
+      renderDynamicNavbar() {
+        const navContainer = document.getElementById('dynamicNavbarLinks');
+        if (!navContainer) return;
+        navContainer.innerHTML = '';
+
+        const links = Array.isArray(this.siteSettings.navigation) ? this.siteSettings.navigation : [];
+        links.forEach(nav => {
+          const a = document.createElement('a');
+          a.href = nav.link || '#';
+          a.className = 'text-xs font-semibold uppercase tracking-wider text-stone-700 hover:text-theme-primary px-3 py-2 transition-colors rounded-lg cursor-pointer';
+          a.textContent = nav.text;
+          a.onclick = (e) => this.handleNavClick(e, nav.link);
+          navContainer.appendChild(a);
+        });
+      },
+
+      handleNavClick(e, link) {
+        if (!link) return;
+        if (link.startsWith('#')) {
+          e.preventDefault();
+          this.showClientView();
+          const target = document.querySelector(link);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      },
+
+      renderFooterSocialLinks() {
+        const footerContainer = document.getElementById('dynamicFooterSocialLinks');
+        const aboutPillsContainer = document.getElementById('aboutSocialPills');
+        if (!footerContainer) return;
+
+        footerContainer.innerHTML = '';
+        if (aboutPillsContainer) aboutPillsContainer.innerHTML = '';
+
+        const channels = Array.isArray(this.siteSettings.socialLinks) ? this.siteSettings.socialLinks : [];
+        const activeChannels = channels.filter(c => c.active && (c.url || '').trim().length > 0);
+
+        activeChannels.forEach(chan => {
+          const iconName = this.getSocialIconName(chan.platform);
+          
+          const a = document.createElement('a');
+          a.href = chan.url;
+          a.target = '_blank';
+          a.rel = 'noopener noreferrer';
+          a.className = 'hover:text-theme-primary transition flex items-center gap-1.5 font-semibold text-stone-600 hover:scale-105 transform duration-150';
+          a.innerHTML = `<i data-lucide="${iconName}" class="w-3.5 h-3.5"></i><span>${chan.label || chan.platform}</span>`;
+          footerContainer.appendChild(a);
+
+          if (aboutPillsContainer) {
+            const pill = document.createElement('a');
+            pill.href = chan.url;
+            pill.target = '_blank';
+            pill.rel = 'noopener noreferrer';
+            pill.className = 'inline-flex items-center gap-1.5 text-xs text-stone-600 hover:text-theme-primary px-3 py-1.5 bg-stone-50 hover:bg-amber-50 rounded-full border border-stone-200 transition-colors shadow-2xs font-medium';
+            pill.innerHTML = `<i data-lucide="${iconName}" class="w-3.5 h-3.5 text-theme-primary"></i><span>${chan.label || chan.platform}</span>`;
+            aboutPillsContainer.appendChild(pill);
+          }
+        });
+
+        lucide.createIcons();
+      },
+
+      getSocialIconName(platform) {
+        switch ((platform || '').toLowerCase()) {
+          case 'whatsapp': return 'message-circle';
+          case 'instagram': return 'instagram';
+          case 'facebook': return 'facebook';
+          case 'youtube': return 'youtube';
+          case 'tiktok': return 'video';
+          case 'pinterest': return 'bookmark';
+          default: return 'globe';
+        }
+      },
+
+      populateCMSForm(settings) {
+        const colors = settings.appearance || {
+          colorPrimary: settings.colorPrimary || '#D4A373',
+          colorSecondary: settings.colorSecondary || '#48BFE3',
+          colorBg: settings.colorBg || '#FAF8F5',
+          colorText: settings.colorText || '#2B2B2B'
+        };
+
+        // Colores
+        document.getElementById('cmsColorPrimaryPicker').value = colors.colorPrimary;
+        document.getElementById('cmsColorPrimaryHex').value = colors.colorPrimary;
+        document.getElementById('cmsColorSecondaryPicker').value = colors.colorSecondary;
+        document.getElementById('cmsColorSecondaryHex').value = colors.colorSecondary;
+        document.getElementById('cmsColorBgPicker').value = colors.colorBg;
+        document.getElementById('cmsColorBgHex').value = colors.colorBg;
+        document.getElementById('cmsColorTextPicker').value = colors.colorText;
+        document.getElementById('cmsColorTextHex').value = colors.colorText;
+
+        // Branding
+        document.getElementById('cmsBrandNameInput').value = settings.brandName || '';
+        document.getElementById('cmsBrandBadgeInput').value = settings.brandBadge || '';
+        document.getElementById('cmsBrandSubtitleInput').value = settings.brandSubtitle || '';
+
+        // Hero
+        document.getElementById('cmsHeroBadgeInput').value = settings.heroBadge || '';
+        document.getElementById('cmsHeroTitleInput').value = settings.heroTitle || '';
+        document.getElementById('cmsHeroSubtitleInput').value = settings.heroSubtitle || '';
+        document.getElementById('cmsHeroCtaTextInput').value = settings.heroCtaText || '';
+        document.getElementById('cmsHeroWhatsAppTextInput').value = settings.heroWhatsAppText || '';
+
+        // Sobre mí
+        document.getElementById('cmsAboutBadgeInput').value = settings.aboutBadge || '';
+        document.getElementById('cmsAboutTitleInput').value = settings.aboutTitle || '';
+        document.getElementById('cmsAboutQuoteInput').value = settings.aboutQuote || '';
+        document.getElementById('cmsAboutDescInput').value = settings.aboutDesc || '';
+        document.getElementById('cmsAboutDeliveryNoteInput').value = settings.aboutDeliveryNote || '';
+
+        // Horarios & Footer
+        document.getElementById('cmsStoreScheduleInput').value = settings.storeSchedule || '';
+        document.getElementById('cmsStoreScheduleActive').checked = settings.storeScheduleActive !== false;
+        document.getElementById('cmsWhatsappDefaultMessageInput').value = settings.whatsappDefaultMessage || '';
+        document.getElementById('cmsFooterCopyrightInput').value = settings.footerCopyright || '';
+
+        this.renderAdminNavEditor();
+        this.renderAdminSocialEditor();
+        this.updatePresetCardHighlights(settings.appearance?.theme || 'custom');
+      },
+
+      applySeasonalPreset(themeKey) {
+        const preset = SEASONAL_PRESETS[themeKey];
+        if (!preset) return;
+
+        if (!this.siteSettings.appearance) this.siteSettings.appearance = {};
+        this.siteSettings.appearance.theme = themeKey;
+        this.siteSettings.appearance.colorPrimary = preset.colorPrimary;
+        this.siteSettings.appearance.colorSecondary = preset.colorSecondary;
+        this.siteSettings.appearance.colorBg = preset.colorBg;
+        this.siteSettings.appearance.colorText = preset.colorText;
+
+        this.siteSettings.colorPrimary = preset.colorPrimary;
+        this.siteSettings.colorSecondary = preset.colorSecondary;
+        this.siteSettings.colorBg = preset.colorBg;
+        this.siteSettings.colorText = preset.colorText;
+
+        document.getElementById('cmsColorPrimaryPicker').value = preset.colorPrimary;
+        document.getElementById('cmsColorPrimaryHex').value = preset.colorPrimary;
+        document.getElementById('cmsColorSecondaryPicker').value = preset.colorSecondary;
+        document.getElementById('cmsColorSecondaryHex').value = preset.colorSecondary;
+        document.getElementById('cmsColorBgPicker').value = preset.colorBg;
+        document.getElementById('cmsColorBgHex').value = preset.colorBg;
+        document.getElementById('cmsColorTextPicker').value = preset.colorText;
+        document.getElementById('cmsColorTextHex').value = preset.colorText;
+
+        document.documentElement.style.setProperty('--color-primary', preset.colorPrimary);
+        document.documentElement.style.setProperty('--color-secondary', preset.colorSecondary);
+        document.documentElement.style.setProperty('--color-bg', preset.colorBg);
+        document.documentElement.style.setProperty('--color-text', preset.colorText);
+
+        this.updatePresetCardHighlights(themeKey);
+        this.showToast(`Paleta de temporada "${preset.name}" seleccionada`);
+      },
+
+      updatePresetCardHighlights(currentTheme) {
+        const christmas = document.getElementById('presetCardChristmas');
+        const autumn = document.getElementById('presetCardAutumn');
+        const spring = document.getElementById('presetCardSpring');
+        const custom = document.getElementById('presetCardCustom');
+        const badge = document.getElementById('currentPresetBadge');
+
+        const resetClass = 'cursor-pointer p-4 rounded-2xl border-2 transition-all hover:shadow-md bg-stone-50/50 border-stone-200';
+        const activeClass = 'cursor-pointer p-4 rounded-2xl border-2 transition-all hover:shadow-md bg-stone-50/50 border-theme-primary shadow-xs ring-2 ring-theme-primary/30';
+
+        if (christmas) christmas.className = currentTheme === 'christmas' ? activeClass : resetClass;
+        if (autumn) autumn.className = currentTheme === 'autumn' ? activeClass : resetClass;
+        if (spring) spring.className = currentTheme === 'spring' ? activeClass : resetClass;
+        if (custom) custom.className = currentTheme === 'custom' ? 'p-4 rounded-2xl border-2 transition-all bg-stone-50/50 border-theme-primary shadow-xs ring-2 ring-theme-primary/30 flex flex-col justify-between' : 'p-4 rounded-2xl border-2 transition-all bg-stone-50/50 border-stone-200 flex flex-col justify-between';
+
+        if (badge) {
+          if (currentTheme === 'christmas') badge.textContent = '🎄 Navidad / Invierno';
+          else if (currentTheme === 'autumn') badge.textContent = '🍂 Otoño / Tradicional';
+          else if (currentTheme === 'spring') badge.textContent = '🌸 Primavera / Verano';
+          else badge.textContent = '🎨 Estilo Personalizado';
+        }
+      },
+
+      handleColorPickerChange(type, value) {
+        if (!this.siteSettings.appearance) this.siteSettings.appearance = {};
+        this.siteSettings.appearance.theme = 'custom';
+        this.updatePresetCardHighlights('custom');
+
+        if (type === 'primary') {
+          document.getElementById('cmsColorPrimaryHex').value = value.toUpperCase();
+          document.documentElement.style.setProperty('--color-primary', value);
+        } else if (type === 'secondary') {
+          document.getElementById('cmsColorSecondaryHex').value = value.toUpperCase();
+          document.documentElement.style.setProperty('--color-secondary', value);
+        } else if (type === 'bg') {
+          document.getElementById('cmsColorBgHex').value = value.toUpperCase();
+          document.documentElement.style.setProperty('--color-bg', value);
+        } else if (type === 'text') {
+          document.getElementById('cmsColorTextHex').value = value.toUpperCase();
+          document.documentElement.style.setProperty('--color-text', value);
+        }
+      },
+
+      handleColorHexChange(type, value) {
+        if (!value.startsWith('#')) value = '#' + value;
+        if (/^#[0-9A-F]{6}$/i.test(value)) {
+          this.handleColorPickerChange(type, value);
+        }
+      },
+
+      renderAdminNavEditor() {
+        const tbody = document.getElementById('cmsNavLinksTableBody');
+        if (!tbody) return;
+        tbody.innerHTML = '';
+
+        const navs = this.siteSettings.navigation || [];
+        navs.forEach((item, index) => {
+          const tr = document.createElement('tr');
+          tr.className = 'hover:bg-stone-50/80 transition';
+          tr.innerHTML = `
+            <td class="py-2.5 px-3">
+              <input type="text" value="${item.text || ''}" onchange="UI.updateNavItem(${index}, 'text', this.value)" class="w-full text-xs px-3 py-1.5 rounded-lg border border-stone-200 bg-white focus:outline-none focus:border-theme-primary" placeholder="Ej: Catálogo">
+            </td>
+            <td class="py-2.5 px-3">
+              <input type="text" value="${item.link || ''}" onchange="UI.updateNavItem(${index}, 'link', this.value)" class="w-full text-xs px-3 py-1.5 rounded-lg border border-stone-200 bg-white font-mono focus:outline-none focus:border-theme-primary" placeholder="Ej: #catalogo o https://...">
+            </td>
+            <td class="py-2.5 px-3 text-right">
+              <button type="button" onclick="UI.deleteNavItem(${index})" class="p-1.5 rounded-lg text-stone-400 hover:text-rose-600 hover:bg-rose-50 transition" title="Eliminar enlace">
+                <i data-lucide="trash-2" class="w-4 h-4"></i>
+              </button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+
+        lucide.createIcons();
+      },
+
+      addNavigationLink() {
+        if (!Array.isArray(this.siteSettings.navigation)) this.siteSettings.navigation = [];
+        this.siteSettings.navigation.push({
+          id: 'nav_' + Date.now(),
+          text: 'Nuevo Enlace',
+          link: '#catalogo'
+        });
+        this.renderAdminNavEditor();
+        this.renderDynamicNavbar();
+        this.showToast('Enlace de navegación añadido al borrador');
+      },
+
+      updateNavItem(index, key, val) {
+        if (this.siteSettings.navigation && this.siteSettings.navigation[index]) {
+          this.siteSettings.navigation[index][key] = val.trim();
+          this.renderDynamicNavbar();
+        }
+      },
+
+      deleteNavItem(index) {
+        if (this.siteSettings.navigation) {
+          this.siteSettings.navigation.splice(index, 1);
+          this.renderAdminNavEditor();
+          this.renderDynamicNavbar();
+          this.showToast('Enlace eliminado');
+        }
+      },
+
+      renderAdminSocialEditor() {
+        const container = document.getElementById('cmsSocialLinksContainer');
+        if (!container) return;
+        container.innerHTML = '';
+
+        const channels = this.siteSettings.socialLinks || [];
+        channels.forEach((item, index) => {
+          const row = document.createElement('div');
+          row.className = 'p-3 rounded-2xl border border-stone-200 bg-stone-50/60 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3';
+          
+          row.innerHTML = `
+            <div class="flex items-center gap-3 w-full sm:w-auto">
+              <label class="flex items-center gap-2 cursor-pointer select-none">
+                <input type="checkbox" ${item.active ? 'checked' : ''} onchange="UI.updateSocialItem(${index}, 'active', this.checked)" class="rounded text-theme-primary focus:ring-theme-primary h-4 w-4">
+                <span class="text-xs font-semibold text-stone-700">${item.active ? 'Activo' : 'Oculto'}</span>
+              </label>
+
+              <select onchange="UI.updateSocialItem(${index}, 'platform', this.value)" class="text-xs px-2.5 py-1.5 rounded-xl border border-stone-200 bg-white focus:outline-none focus:border-theme-primary">
+                <option value="whatsapp" ${item.platform === 'whatsapp' ? 'selected' : ''}>WhatsApp</option>
+                <option value="instagram" ${item.platform === 'instagram' ? 'selected' : ''}>Instagram</option>
+                <option value="facebook" ${item.platform === 'facebook' ? 'selected' : ''}>Facebook</option>
+                <option value="tiktok" ${item.platform === 'tiktok' ? 'selected' : ''}>TikTok</option>
+                <option value="youtube" ${item.platform === 'youtube' ? 'selected' : ''}>YouTube</option>
+                <option value="pinterest" ${item.platform === 'pinterest' ? 'selected' : ''}>Pinterest</option>
+                <option value="custom" ${item.platform === 'custom' ? 'selected' : ''}>Otro / Web</option>
+              </select>
+            </div>
+
+            <div class="flex items-center gap-2 flex-grow w-full sm:w-auto">
+              <input type="text" value="${item.label || ''}" onchange="UI.updateSocialItem(${index}, 'label', this.value)" placeholder="Etiqueta visible" class="w-28 text-xs px-3 py-1.5 rounded-xl border border-stone-200 bg-white focus:outline-none focus:border-theme-primary">
+              <input type="text" value="${item.url || ''}" onchange="UI.updateSocialItem(${index}, 'url', this.value)" placeholder="URL o enlace directo" class="flex-grow text-xs px-3 py-1.5 rounded-xl border border-stone-200 bg-white focus:outline-none focus:border-theme-primary font-mono">
+            </div>
+
+            <button type="button" onclick="UI.deleteSocialItem(${index})" class="p-1.5 rounded-lg text-stone-400 hover:text-rose-600 hover:bg-rose-50 transition shrink-0 self-end sm:self-center" title="Eliminar canal">
+              <i data-lucide="trash-2" class="w-4 h-4"></i>
+            </button>
+          `;
+          container.appendChild(row);
+        });
+
+        lucide.createIcons();
+      },
+
+      addSocialChannel() {
+        if (!Array.isArray(this.siteSettings.socialLinks)) this.siteSettings.socialLinks = [];
+        this.siteSettings.socialLinks.push({
+          id: 'soc_' + Date.now(),
+          platform: 'instagram',
+          label: 'Instagram',
+          url: 'https://instagram.com/nadiart',
+          active: true
+        });
+        this.renderAdminSocialEditor();
+        this.renderFooterSocialLinks();
+        this.showToast('Canal añadido a la lista');
+      },
+
+      updateSocialItem(index, key, val) {
+        if (this.siteSettings.socialLinks && this.siteSettings.socialLinks[index]) {
+          this.siteSettings.socialLinks[index][key] = val;
+          if (key === 'url' && this.siteSettings.socialLinks[index].platform === 'whatsapp') {
+            const match = val.match(/\d+/);
+            if (match) this.siteSettings.whatsappNumber = match[0];
+          }
+          this.renderFooterSocialLinks();
+        }
+      },
+
+      deleteSocialItem(index) {
+        if (this.siteSettings.socialLinks) {
+          this.siteSettings.socialLinks.splice(index, 1);
+          this.renderAdminSocialEditor();
+          this.renderFooterSocialLinks();
+          this.showToast('Canal eliminado');
+        }
+      },
+
+      // Guardar configuraciones del CMS en Firestore (settings/siteConfig)
+      async saveSiteSettingsFromForm() {
+        const appearanceTheme = this.siteSettings.appearance?.theme || 'custom';
+        const colorPrimary = document.getElementById('cmsColorPrimaryHex').value.trim() || '#D4A373';
+        const colorSecondary = document.getElementById('cmsColorSecondaryHex').value.trim() || '#48BFE3';
+        const colorBg = document.getElementById('cmsColorBgHex').value.trim() || '#FAF8F5';
+        const colorText = document.getElementById('cmsColorTextHex').value.trim() || '#2B2B2B';
+
+        const newSettings = {
+          ...this.siteSettings,
+          appearance: {
+            theme: appearanceTheme,
+            colorPrimary,
+            colorSecondary,
+            colorBg,
+            colorText
+          },
+          colorPrimary,
+          colorSecondary,
+          colorBg,
+          colorText,
+
+          brandName: document.getElementById('cmsBrandNameInput').value.trim() || 'NadiArt',
+          brandBadge: document.getElementById('cmsBrandBadgeInput').value.trim() || 'Taller',
+          brandSubtitle: document.getElementById('cmsBrandSubtitleInput').value.trim() || 'Cerámica, relieve & tesoros artesanales',
+
+          heroBadge: document.getElementById('cmsHeroBadgeInput').value.trim() || 'Edición Limitada Hecha a Mano',
+          heroTitle: document.getElementById('cmsHeroTitleInput').value.trim() || 'Detalles únicos que cuentan una historia',
+          heroSubtitle: document.getElementById('cmsHeroSubtitleInput').value.trim() || '',
+          heroCtaText: document.getElementById('cmsHeroCtaTextInput').value.trim() || 'Ver Piezas Disponibles',
+          heroWhatsAppText: document.getElementById('cmsHeroWhatsAppTextInput').value.trim() || 'Pregúntame por WhatsApp',
+
+          aboutBadge: document.getElementById('cmsAboutBadgeInput').value.trim() || 'El alma del taller',
+          aboutTitle: document.getElementById('cmsAboutTitleInput').value.trim() || 'Creando con las manos y el corazón',
+          aboutQuote: document.getElementById('cmsAboutQuoteInput').value.trim() || '',
+          aboutDesc: document.getElementById('cmsAboutDescInput').value.trim() || '',
+          aboutDeliveryNote: document.getElementById('cmsAboutDeliveryNoteInput').value.trim() || 'Entregas locales y envíos a convenir',
+
+          storeSchedule: document.getElementById('cmsStoreScheduleInput').value.trim() || '',
+          storeScheduleActive: document.getElementById('cmsStoreScheduleActive').checked,
+          whatsappDefaultMessage: document.getElementById('cmsWhatsappDefaultMessageInput').value.trim() || '¡Hola NadiArt! Estuve viendo el catálogo en tu tienda y me gustaría solicitar información sobre piezas y pedidos.',
+          footerCopyright: document.getElementById('cmsFooterCopyrightInput').value.trim() || '© 2026 NadiArt. Todos los derechos reservados.'
+        };
+
+        try {
+          this.showToast('Sincronizando con Firebase Firestore...');
+          await DataService.saveSiteSettings(newSettings);
+          this.siteSettings = newSettings;
+          this.applySiteSettingsToDOM(this.siteSettings);
+          this.renderCatalog();
+          this.showToast('¡Configuración sincronizada en Firestore con éxito!');
+        } catch (err) {
+          console.error("Error guardando settings en Firestore:", err);
+          this.showToast('Aviso: guardado localmente (revisa conexión)');
+        }
+      },
+
+      // Restablecer valores de fábrica
+      async resetDefaultSiteSettings() {
+        if (!confirm('¿Deseas restablecer todos los colores, navegación, redes y diseño de la web a los valores predeterminados?')) return;
+        try {
+          await DataService.saveSiteSettings(DEFAULT_SITE_SETTINGS);
+          this.siteSettings = JSON.parse(JSON.stringify(DEFAULT_SITE_SETTINGS));
+          this.applySiteSettingsToDOM(this.siteSettings);
+          this.populateCMSForm(this.siteSettings);
+          this.renderCatalog();
+          this.showToast('Valores originales restaurados en Firestore');
+        } catch (e) {
+          console.error(e);
+          this.showToast('Valores restaurados localmente');
+        }
+      },
+
+      switchAdminTab(tabName) {
+        this.currentAdminTab = tabName;
+        
+        const inv = document.getElementById('adminTabContentInventory');
+        const cust = document.getElementById('adminTabContentCustomization');
+        const sec = document.getElementById('adminTabContentSecurity');
+
+        inv.classList.add('hidden');
+        cust.classList.add('hidden');
+        sec.classList.add('hidden');
+
+        const btnInv = document.getElementById('adminTabBtnInventory');
+        const btnCust = document.getElementById('adminTabBtnCustomization');
+        const btnSec = document.getElementById('adminTabBtnSecurity');
+
+        const activeClass = 'admin-nav-tab flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold transition bg-charcoal text-white shadow-xs';
+        const inactiveClass = 'admin-nav-tab flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold transition text-stone-600 hover:bg-stone-100 border border-stone-200';
+
+        btnInv.className = inactiveClass;
+        btnCust.className = inactiveClass;
+        btnSec.className = inactiveClass;
+
+        if (tabName === 'inventory') {
+          inv.classList.remove('hidden');
+          btnInv.className = activeClass;
+          this.renderAdminTable();
+        } else if (tabName === 'customization') {
+          cust.classList.remove('hidden');
+          btnCust.className = activeClass;
+          this.populateCMSForm(this.siteSettings);
+        } else if (tabName === 'security') {
+          sec.classList.remove('hidden');
+          btnSec.className = activeClass;
+        }
+
+        lucide.createIcons();
+      },
+
+      showClientView() {
+        document.getElementById('clientView').classList.remove('hidden');
+        document.getElementById('adminView').classList.add('hidden');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      },
+
+      showAdminView() {
+        if (!AuthService.isLoggedIn()) {
+          this.openLoginModal();
+          return;
+        }
+        document.getElementById('clientView').classList.add('hidden');
+        document.getElementById('adminView').classList.remove('hidden');
+
+        this.switchAdminTab(this.currentAdminTab);
+        this.updateStats();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        lucide.createIcons();
+      },
+
+      handleAdminNavAction() {
+        if (AuthService.isLoggedIn()) {
+          this.showAdminView();
+        } else {
+          this.openLoginModal();
+        }
+      },
+
+      updateNavButtonState() {
+        const textSpan = document.getElementById('adminNavText');
+        if (AuthService.isLoggedIn()) {
+          textSpan.textContent = 'Mi Panel (Admin)';
+        } else {
+          textSpan.textContent = 'Acceso Administración';
+        }
+      },
+
+      showToast(message) {
+        const toast = document.getElementById('toastNotification');
+        document.getElementById('toastText').textContent = message;
+        toast.classList.remove('opacity-0', 'translate-y-24');
+        toast.classList.add('opacity-100', 'translate-y-0');
+
+        setTimeout(() => {
+          toast.classList.remove('opacity-100', 'translate-y-0');
+          toast.classList.add('opacity-0', 'translate-y-24');
+        }, 3500);
+      },
+
+      setCategory(cat) {
+        this.currentCategory = cat;
+        document.querySelectorAll('.cat-btn').forEach(btn => {
+          if (btn.dataset.cat === cat) {
+            btn.className = 'cat-btn px-4 py-2 rounded-full text-xs font-semibold transition-all bg-charcoal text-white shadow-xs';
+          } else {
+            btn.className = 'cat-btn px-4 py-2 rounded-full text-xs font-semibold text-stone-600 hover:bg-stone-100 border border-stone-200';
+          }
+        });
+        this.renderCatalog();
+      },
+
+      resetFilters() {
+        document.getElementById('searchInput').value = '';
+        document.getElementById('onlyAvailableCheck').checked = false;
+        this.setCategory('all');
+      },
+
+      renderCatalog() {
+        const grid = document.getElementById('productsGrid');
+        const emptyState = document.getElementById('noProductsState');
+        const search = document.getElementById('searchInput').value.toLowerCase().trim();
+        const onlyAvailable = document.getElementById('onlyAvailableCheck').checked;
+        const phone = this.siteSettings.whatsappNumber || '5214620000000';
+
+        grid.innerHTML = '';
+
+        const filtered = this.products.filter(p => {
+          const matchCat = this.currentCategory === 'all' || p.category === this.currentCategory;
+          const matchSearch = (p.title || '').toLowerCase().includes(search) || ((p.desc || '').toLowerCase().includes(search));
+          const matchAvailable = !onlyAvailable || p.status === 'Disponible';
+          return matchCat && matchSearch && matchAvailable;
+        });
+
+        if (filtered.length === 0) {
+          emptyState.classList.remove('hidden');
+          return;
+        } else {
+          emptyState.classList.add('hidden');
+        }
+
+        filtered.forEach(p => {
+          const isAvailable = p.status === 'Disponible';
+          const card = document.createElement('div');
+          card.className = 'bg-white rounded-3xl overflow-hidden border border-warmbeige shadow-xs hover:shadow-md transition-all duration-300 flex flex-col group';
+
+          const imgSrc = p.imageUrl || p.image || 'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&q=80&w=800';
+          const encodedMsg = encodeURIComponent(`¡Hola NadiArt! Me encantó la pieza "${p.title}" de $${p.price} MXN que vi en tu catálogo. ¿Sigue disponible para entrega?`);
+          const waUrl = `https://wa.me/${phone}?text=${encodedMsg}`;
+
+          card.innerHTML = `
+            <div class="relative aspect-square overflow-hidden bg-stone-100 cursor-pointer" onclick="UI.openDetailModal('${p.id}')">
+              <img src="${imgSrc}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+              
+              <div class="absolute top-3 left-3">
+                <span class="text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider backdrop-blur-xs shadow-xs ${
+                  isAvailable ? 'bg-emerald-600/90 text-white' : 'bg-stone-700/85 text-stone-200'
+                }">
+                  ${p.status}
+                </span>
+              </div>
+
+              <div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                <div class="w-8 h-8 rounded-full bg-white/90 text-stone-800 flex items-center justify-center shadow-md">
+                  <i data-lucide="zoom-in" class="w-4 h-4"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-5 flex flex-col flex-grow justify-between space-y-4">
+              <div class="space-y-1.5">
+                <span class="text-[10px] uppercase font-bold tracking-widest text-theme-primary">${p.category}</span>
+                <h3 class="font-serif text-base font-bold text-charcoal line-clamp-1 cursor-pointer hover:text-theme-primary transition" onclick="UI.openDetailModal('${p.id}')">
+                  ${p.title}
+                </h3>
+                <p class="text-xs text-stone-500 line-clamp-2 leading-relaxed">
+                  ${p.desc || 'Pieza artesanal única hecha a mano.'}
+                </p>
+              </div>
+
+              <div class="pt-2 border-t border-stone-100 flex items-center justify-between gap-2">
+                <div>
+                  <span class="text-[10px] text-stone-400 block uppercase font-medium">Precio</span>
+                  <span class="font-serif text-lg font-bold text-charcoal">$${p.price} <span class="text-xs font-sans font-normal text-stone-500">MXN</span></span>
+                </div>
+
+                ${isAvailable ? `
+                  <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold tracking-wide transition flex items-center gap-1.5 shadow-2xs">
+                    <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+                    <span>Pedir</span>
+                  </a>
+                ` : `
+                  <button disabled class="px-3 py-1.5 rounded-xl bg-stone-100 text-stone-400 text-xs font-semibold cursor-not-allowed">
+                    Agotado
+                  </button>
+                `}
+              </div>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+
+        lucide.createIcons();
+      },
+
+      openDetailModal(id) {
+        const prod = this.products.find(p => p.id === id);
+        if (!prod) return;
+
+        const phone = this.siteSettings.whatsappNumber || '5214620000000';
+        const isAvailable = prod.status === 'Disponible';
+
+        const imgSrc = prod.imageUrl || prod.image || 'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&q=80&w=800';
+        document.getElementById('detailModalImage').src = imgSrc;
+        document.getElementById('detailModalCategory').textContent = prod.category;
+        document.getElementById('detailModalTitle').textContent = prod.title;
+        document.getElementById('detailModalPrice').textContent = `$${prod.price} MXN`;
+        document.getElementById('detailModalDesc').textContent = prod.desc || 'Pieza hecha con relieve y cerámica fina en el taller.';
+
+        const badge = document.getElementById('detailModalBadge');
+        badge.textContent = prod.status;
+        badge.className = isAvailable
+          ? 'absolute bottom-3 left-3 text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm bg-emerald-600 text-white'
+          : 'absolute bottom-3 left-3 text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm bg-stone-700 text-stone-200';
+
+        const btn = document.getElementById('detailModalWhatsAppBtn');
+        const encodedMsg = encodeURIComponent(`Hola NadiArt! Quisiera comprar la pieza "${prod.title}" que vi en el catálogo por $${prod.price} MXN.`);
+
+        if (isAvailable) {
+          btn.onclick = () => window.open(`https://wa.me/${phone}?text=${encodedMsg}`, '_blank');
+          btn.classList.remove('opacity-50', 'pointer-events-none');
+          btn.innerHTML = `<i data-lucide="message-circle" class="w-4 h-4"></i><span>Lo quiero / Pedir por WhatsApp</span>`;
+        } else {
+          btn.classList.add('opacity-50', 'pointer-events-none');
+          btn.innerHTML = `<span>Esta pieza ya fue vendida</span>`;
+        }
+
+        document.getElementById('productDetailModal').classList.remove('hidden');
+        lucide.createIcons();
+      },
+
+      closeDetailModal() {
+        document.getElementById('productDetailModal').classList.add('hidden');
+      },
+
+      contactGeneralWhatsApp() {
+        const phone = this.siteSettings.whatsappNumber || '5214620000000';
+        const msg = encodeURIComponent(this.siteSettings.whatsappDefaultMessage || '¡Hola NadiArt! Estuve viendo el catálogo en tu tienda y me gustaría solicitar información sobre piezas y pedidos.');
+        window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
+      },
+
+      openLoginModal() {
+        document.getElementById('loginModal').classList.remove('hidden');
+        document.getElementById('loginUsernameInput').value = '';
+        document.getElementById('loginPasswordInput').value = '';
+        document.getElementById('loginErrorMessage').classList.add('hidden');
+      },
+
+      closeLoginModal() {
+        document.getElementById('loginModal').classList.add('hidden');
+      },
+
+      handleLoginSubmit(e) {
+        e.preventDefault();
+        const u = document.getElementById('loginUsernameInput').value;
+        const p = document.getElementById('loginPasswordInput').value;
+
+        if (AuthService.login(u, p)) {
+          this.closeLoginModal();
+          this.updateNavButtonState();
+          this.showAdminView();
+          this.showToast('Sesión de administración iniciada');
+        } else {
+          document.getElementById('loginErrorMessage').classList.remove('hidden');
+        }
+      },
+
+      // Seleccionar archivo para Cloud Storage
+      handleImageFileSelect(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        this.selectedImageFile = file;
+
+        // Previsualización local inmediata
+        const reader = new FileReader();
+        reader.onload = (evt) => {
+          this.currentBase64Image = evt.target.result;
+          this.showAdminImagePreview(this.currentBase64Image);
+          document.getElementById('adminImageUrlInput').value = '';
+        };
+        reader.readAsDataURL(file);
+      },
+
+      handleImageUrlInput(url) {
+        if (url.trim()) {
+          this.selectedImageFile = null;
+          this.currentBase64Image = url.trim();
+          this.showAdminImagePreview(this.currentBase64Image);
+        }
+      },
+
+      showAdminImagePreview(src) {
+        const box = document.getElementById('adminImagePreviewBox');
+        const img = document.getElementById('adminImagePreview');
+        img.src = src;
+        box.classList.remove('hidden');
+      },
+
+      clearAdminImage() {
+        this.selectedImageFile = null;
+        this.currentBase64Image = '';
+        document.getElementById('adminFileInput').value = '';
+        document.getElementById('adminImageUrlInput').value = '';
+        document.getElementById('adminImagePreviewBox').classList.add('hidden');
+      },
+
+      // Publicar o Editar Producto con Cloud Storage & Firestore
+      async handleProductFormSubmit(e) {
+        e.preventDefault();
+        if (this.isSavingProduct) return;
+
+        const editId = document.getElementById('adminEditId').value;
+        const title = document.getElementById('adminTitle').value.trim();
+        const price = parseFloat(document.getElementById('adminPrice').value);
+        const category = document.getElementById('adminCategory').value;
+        const status = document.getElementById('adminStatus').value;
+        const desc = document.getElementById('adminDesc').value.trim();
+
+        // Mostrar estado visual de carga y deshabilitar botón
+        this.isSavingProduct = true;
+        const submitBtn = document.getElementById('adminFormSubmitBtn');
+        const loadingIndicator = document.getElementById('adminFormLoadingIndicator');
+        const loadingMessage = document.getElementById('adminFormLoadingMessage');
+        
+        submitBtn.disabled = true;
+        submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        loadingIndicator.classList.remove('hidden');
+
+        try {
+          let finalImageUrl = this.currentBase64Image || 'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&q=80&w=800';
+
+          // 1. Si se seleccionó un archivo nuevo, subirlo a Firebase Cloud Storage
+          if (this.selectedImageFile) {
+            loadingMessage.textContent = 'Subiendo imagen a Firebase Cloud Storage...';
+            finalImageUrl = await DataService.uploadProductImage(this.selectedImageFile);
+          }
+
+          // 2. Guardar o actualizar en Firebase Firestore
+          loadingMessage.textContent = 'Guardando documento en Firestore...';
+          const productPayload = {
+            title,
+            price,
+            category,
+            status,
+            desc,
+            imageUrl: finalImageUrl,
+            image: finalImageUrl
+          };
+
+          if (editId) {
+            await DataService.updateProduct(editId, productPayload);
+            this.showToast('Pieza actualizada exitosamente en Firestore');
+          } else {
+            await DataService.addProduct(productPayload);
+            this.showToast('¡Nueva pieza sincronizada en tiempo real!');
+          }
+
+          this.resetAdminForm();
+        } catch (err) {
+          console.error("Error guardando producto en Firebase:", err);
+          this.showToast('Error al conectar con Firebase: ' + (err.message || 'Error de red'));
+        } finally {
+          this.isSavingProduct = false;
+          submitBtn.disabled = false;
+          submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+          loadingIndicator.classList.add('hidden');
+        }
+      },
+
+      startEditProduct(id) {
+        const p = this.products.find(item => item.id === id);
+        if (!p) return;
+
+        document.getElementById('adminEditId').value = p.id;
+        document.getElementById('adminTitle').value = p.title || '';
+        document.getElementById('adminPrice').value = p.price || 0;
+        document.getElementById('adminCategory').value = p.category || 'Navidad & Temporada';
+        document.getElementById('adminStatus').value = p.status || 'Disponible';
+        document.getElementById('adminDesc').value = p.desc || '';
+
+        this.selectedImageFile = null;
+        this.currentBase64Image = p.imageUrl || p.image || '';
+        if (this.currentBase64Image) {
+          this.showAdminImagePreview(this.currentBase64Image);
+        }
+
+        document.getElementById('formTitleText').textContent = 'Editar Pieza';
+        document.getElementById('adminFormSubmitText').textContent = 'Guardar Cambios en Firestore';
+        document.getElementById('cancelEditBtn').classList.remove('hidden');
+
+        window.scrollTo({ top: 120, behavior: 'smooth' });
+      },
+
+      resetAdminForm() {
+        document.getElementById('adminProductForm').reset();
+        document.getElementById('adminEditId').value = '';
+        this.clearAdminImage();
+        document.getElementById('formTitleText').textContent = 'Publicar Nueva Pieza';
+        document.getElementById('adminFormSubmitText').textContent = 'Publicar Pieza';
+        document.getElementById('cancelEditBtn').classList.add('hidden');
+      },
+
+      // Edición rápida de precio en línea (Firestore)
+      async updateProductPriceInline(id, newPrice) {
+        const parsed = parseFloat(newPrice);
+        if (isNaN(parsed) || parsed < 0) return;
+
+        try {
+          await DataService.updateProduct(id, { price: parsed });
+          this.showToast('Precio sincronizado en Firestore');
+        } catch (e) {
+          console.error(e);
+          this.showToast('Error actualizando precio en Firestore');
+        }
+      },
+
+      // Conmutar disponibilidad en Firestore en un clic
+      async toggleProductStatus(id) {
+        const p = this.products.find(item => item.id === id);
+        if (!p) return;
+
+        const newStatus = p.status === 'Disponible' ? 'Agotado' : 'Disponible';
+        try {
+          await DataService.updateProduct(id, { status: newStatus });
+          this.showToast(`Estado cambiado a ${newStatus} en Firestore`);
+        } catch (e) {
+          console.error(e);
+          this.showToast('Error actualizando estado en Firestore');
+        }
+      },
+
+      // Eliminar producto en Firestore
+      async deleteProductItem(id) {
+        if (!confirm('¿Deseas eliminar esta pieza de Firestore?')) return;
+        try {
+          await DataService.deleteProduct(id);
+          this.showToast('Pieza eliminada de Firestore');
+        } catch (e) {
+          console.error(e);
+          this.showToast('Error al eliminar producto');
+        }
+      },
+
+      renderAdminTable() {
+        const tbody = document.getElementById('adminTableBody');
+        if (!tbody) return;
+        const filter = document.getElementById('adminTableFilterInput') ? document.getElementById('adminTableFilterInput').value.toLowerCase().trim() : '';
+        tbody.innerHTML = '';
+
+        const filtered = this.products.filter(p => (p.title || '').toLowerCase().includes(filter) || (p.category || '').toLowerCase().includes(filter));
+
+        filtered.forEach(p => {
+          const tr = document.createElement('tr');
+          tr.className = 'hover:bg-stone-50/70 transition';
+          const imgSrc = p.imageUrl || p.image || 'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&q=80&w=800';
+          
+          tr.innerHTML = `
+            <td class="py-3 px-3">
+              <div class="flex items-center gap-2.5">
+                <img src="${imgSrc}" alt="" class="w-10 h-10 rounded-lg object-cover border border-stone-200 shrink-0">
+                <div class="font-medium text-stone-800 line-clamp-1">${p.title}</div>
+              </div>
+            </td>
+            <td class="py-3 px-2 text-stone-500 whitespace-nowrap">${p.category}</td>
+            <td class="py-3 px-2 whitespace-nowrap">
+              <div class="flex items-center gap-1 font-bold text-stone-800">
+                <span>$</span>
+                <input type="number" min="0" value="${p.price}" onchange="UI.updateProductPriceInline('${p.id}', this.value)" class="w-20 px-2 py-1 rounded-lg border border-stone-200 text-xs font-semibold focus:border-theme-primary focus:outline-none bg-stone-50">
+              </div>
+            </td>
+            <td class="py-3 px-2 whitespace-nowrap">
+              <button onclick="UI.toggleProductStatus('${p.id}')" title="Clic para alternar disponibilidad" class="px-2.5 py-1 rounded-full text-[10px] font-bold tracking-wide transition cursor-pointer ${
+                p.status === 'Disponible' 
+                  ? 'bg-emerald-100 text-emerald-800 hover:bg-emerald-200' 
+                  : 'bg-amber-100 text-amber-800 hover:bg-amber-200'
+              }">
+                ${p.status}
+              </button>
+            </td>
+            <td class="py-3 px-3 text-right whitespace-nowrap space-x-1">
+              <button onclick="UI.startEditProduct('${p.id}')" title="Editar detalles" class="p-1.5 rounded-lg text-stone-600 hover:text-theme-primary hover:bg-amber-50 transition">
+                <i data-lucide="edit-3" class="w-4 h-4"></i>
+              </button>
+              <button onclick="UI.deleteProductItem('${p.id}')" title="Eliminar pieza" class="p-1.5 rounded-lg text-stone-400 hover:text-rose-600 hover:bg-rose-50 transition">
+                <i data-lucide="trash-2" class="w-4 h-4"></i>
+              </button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+
+        lucide.createIcons();
+      },
+
+      updateStats() {
+        const total = this.products.length;
+        const available = this.products.filter(p => p.status === 'Disponible').length;
+        const sold = this.products.filter(p => p.status === 'Agotado').length;
+
+        document.getElementById('statTotalCount').textContent = total;
+        document.getElementById('statAvailableCount').textContent = available;
+        document.getElementById('statSoldCount').textContent = sold;
+        document.getElementById('statWhatsAppPhone').textContent = '+' + (this.siteSettings.whatsappNumber || '52...');
+      },
+
+      saveAdminCredentials() {
+        const newU = document.getElementById('settingNewUsername').value;
+        const newP = document.getElementById('settingNewPassword').value;
+
+        if (!newU.trim() && !newP.trim()) {
+          this.showToast('Escribe un nuevo usuario o contraseña');
+          return;
+        }
+
+        AuthService.updateCredentials(newU, newP);
+        document.getElementById('settingNewUsername').value = '';
+        document.getElementById('settingNewPassword').value = '';
+        this.showToast('Credenciales actualizadas exitosamente');
+      }
+    };
+
+    // Exportar objetos a window para controladores de eventos HTML inline (onclick, onchange, etc.)
+    window.UI = UI;
+    window.AuthService = AuthService;
+    window.DataService = DataService;
+
+    // Inicializar aplicación al cargar
+    window.addEventListener('DOMContentLoaded', () => {
+      UI.init();
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NadiArt | Cerámica, Relieve & Tesoros Artesanales</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Playfair Display + Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            linen: '#F9F7F2',
+            warmbeige: '#F1ECE1',
+            clay: '#B87D59',
+            gold: {
+              400: '#E0B238',
+              500: '#C89B2B',
+              600: '#AA7F1A',
+            },
+            glacier: {
+              50: '#F0F9FB',
+              100: '#E0F3F7',
+              300: '#7CD1E2',
+              500: '#2BA8C4',
+              700: '#1D7286',
+            },
+            charcoal: '#2D3134'
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #FAF8F5;
+      color: #2D3134;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .font-serif {
+      font-family: 'Playfair Display', serif;
+    }
+    .gold-shimmer {
+      background: linear-gradient(135deg, #d4af37 0%, #f3e5ab 50%, #aa7f1a 100%);
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: #f1ede4;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #d4af37;
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-gold-500 selection:text-white">
+
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-warmbeige transition-all shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Logo Branding -->
+      <a href="#inicio" onclick="showCatalogView()" class="flex items-center gap-3 group text-decoration-none">
+        <div class="w-12 h-12 rounded-full border border-gold-500/40 bg-linen flex items-center justify-center p-2 shadow-inner group-hover:scale-105 transition-transform duration-200">
+          <!-- Sello Gatito Estilizado NadiArt -->
+          <svg viewBox="0 0 100 100" class="w-full h-full text-gold-600 stroke-current fill-none stroke-[3.5]">
+            <circle cx="50" cy="50" r="46" stroke-dasharray="3 2" class="stroke-gold-400 opacity-60" />
+            <!-- Gatito hecho a mano con corazón -->
+            <path d="M35 68 C35 55 42 45 42 38 C42 32 37 25 35 22 C42 24 49 29 52 34 C55 29 62 24 69 22 C67 25 62 32 62 38 C62 45 69 55 69 68 C69 77 62 82 52 82 C42 82 35 77 35 68 Z" fill="#FAF6EE" />
+            <circle cx="46" cy="40" r="2.5" fill="currentColor" />
+            <circle cx="58" cy="40" r="2.5" fill="currentColor" />
+            <path d="M52 46 L49 43 L55 43 Z" fill="currentColor" />
+            <path d="M47 48 Q52 52 57 48" />
+            <path d="M52 58 C49 55 46 56 46 60 C46 65 52 69 52 69 C52 69 58 65 58 60 C58 56 55 55 52 58 Z" fill="#C89B2B" class="stroke-none" />
+            <path d="M68 62 C74 60 80 65 80 72 C80 78 74 81 68 76" stroke-linecap="round" />
+          </svg>
+        </div>
+        <div>
+          <div class="flex items-center gap-1.5">
+            <span class="font-serif text-2xl font-bold tracking-wider text-charcoal">Nadi<span class="text-gold-600 font-medium">Art</span></span>
+            <span class="text-[10px] tracking-widest uppercase font-semibold text-glacier-700 bg-glacier-100/70 px-2 py-0.5 rounded-full border border-glacier-300">Taller</span>
+          </div>
+          <p class="text-xs text-stone-500 font-light tracking-wide">Cerámica, relieve & curaduría</p>
+        </div>
+      </a>
+
+      <!-- Acciones de Navegación -->
+      <div class="flex items-center gap-3">
+        <a href="#contacto" class="hidden sm:inline-flex text-xs font-semibold uppercase tracking-wider text-charcoal hover:text-gold-600 px-3 py-2 transition-colors">
+          Sobre Mí
+        </a>
+        <a href="#catalogo" onclick="showCatalogView()" class="hidden sm:inline-flex text-xs font-semibold uppercase tracking-wider text-charcoal hover:text-gold-600 px-3 py-2 transition-colors">
+          Catálogo
+        </a>
+
+        <!-- Botón Modo Administrador -->
+        <button id="adminNavBtn" onclick="handleAdminButtonClick()" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-full border border-gold-500/60 bg-gold-50 text-gold-700 text-xs font-medium hover:bg-gold-500 hover:text-white transition-all duration-200 shadow-2xs">
+          <i data-lucide="lock" class="w-3.5 h-3.5"></i>
+          <span id="adminNavText">Administrar</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- NOTIFICACIÓN TOAST -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 bg-charcoal text-white text-sm px-4 py-3 rounded-xl shadow-xl flex items-center gap-3 border border-stone-600">
+    <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400"></i>
+    <span id="toastMessage">Operación realizada</span>
+  </div>
+
+  <!-- CONTENEDOR PRINCIPAL -->
+  <main class="flex-grow">
+    
+    <!-- ==================== VISTA CLIENTE (CATÁLOGO) ==================== -->
+    <div id="clientView">
+      
+      <!-- HERO SECTION -->
+      <section id="inicio" class="relative overflow-hidden bg-gradient-to-b from-linen via-warmbeige/30 to-transparent pt-12 pb-16 lg:pt-20 lg:pb-24 border-b border-warmbeige/60">
+        <!-- Decoraciones de fondo sutiles -->
+        <div class="absolute -top-12 -right-12 w-64 h-64 rounded-full bg-glacier-100/60 blur-3xl pointer-events-none"></div>
+        <div class="absolute top-1/2 -left-20 w-80 h-80 rounded-full bg-amber-100/50 blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            
+            <div class="lg:col-span-7 text-center lg:text-left space-y-6">
+              <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-gold-500/40 shadow-xs">
+                <i data-lucide="sparkles" class="w-4 h-4 text-gold-500"></i>
+                <span class="text-xs font-semibold text-stone-700 uppercase tracking-widest">Edición Hecha a Mano & Temporada</span>
+              </div>
+
+              <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl text-charcoal font-bold leading-tight">
+                Detalles únicos que cuentan una <span class="italic font-normal text-gold-600">historia</span>
+              </h1>
+
+              <p class="text-stone-600 text-base sm:text-lg max-w-xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                Cerámica blanca, texturas en relieve invernales con destellos dorados y turquesa. Cada pieza es modelada con calma y amor para llenar de luz y arte tu hogar.
+              </p>
+
+              <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+                <a href="#catalogo" class="px-6 py-3.5 rounded-full bg-charcoal text-white hover:bg-stone-800 text-sm font-semibold tracking-wide transition-all duration-200 shadow-md hover:shadow-lg flex items-center gap-2">
+                  <span>Ver Piezas Disponibles</span>
+                  <i data-lucide="arrow-down" class="w-4 h-4"></i>
+                </a>
+                <button onclick="contactGeneral()" class="px-6 py-3.5 rounded-full bg-white text-stone-800 border border-stone-300 hover:border-gold-500 hover:bg-gold-50/50 text-sm font-semibold tracking-wide transition-all flex items-center gap-2">
+                  <i data-lucide="message-circle" class="w-4 h-4 text-emerald-600"></i>
+                  <span>Pregúntame por WhatsApp</span>
+                </button>
+              </div>
+
+              <div class="flex items-center justify-center lg:justify-start gap-6 pt-4 text-xs text-stone-500 font-medium">
+                <div class="flex items-center gap-1.5">
+                  <i data-lucide="check" class="w-4 h-4 text-gold-500"></i>
+                  <span>100% Artesanal</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <i data-lucide="shield-check" class="w-4 h-4 text-gold-500"></i>
+                  <span>Sello de Autor</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <i data-lucide="gift" class="w-4 h-4 text-gold-500"></i>
+                  <span>Listo para regalar</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mini collage decorativo representativo -->
+            <div class="lg:col-span-5 relative">
+              <div class="relative mx-auto max-w-sm sm:max-w-md lg:max-w-none">
+                <div class="relative bg-white p-3 rounded-3xl shadow-xl border border-warmbeige transform -rotate-1 hover:rotate-0 transition-all duration-300">
+                  <div class="aspect-4/3 rounded-2xl overflow-hidden bg-warmbeige/40 relative">
+                    <img id="heroImagePreview" src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&q=80&w=800" alt="Artesanía y Cerámica" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent flex items-end p-5">
+                      <div class="text-white">
+                        <span class="text-[11px] font-semibold uppercase tracking-widest text-glacier-300 bg-black/40 px-2.5 py-1 rounded-full backdrop-blur-xs">Colección Especial</span>
+                        <h4 class="font-serif text-xl font-bold mt-1">Copos de Nieve & Oro Fino</h4>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="p-3 flex items-center justify-between text-xs text-stone-600">
+                    <span class="flex items-center gap-1"><i data-lucide="heart" class="w-3.5 h-3.5 text-rose-500 fill-rose-500"></i> Cerámica NadiArt</span>
+                    <span class="font-semibold text-gold-600">Taller Exclusivo</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN CATÁLOGO -->
+      <section id="catalogo" class="py-14 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-2xl mx-auto mb-10 space-y-3">
+          <h2 class="font-serif text-3xl sm:text-4xl text-charcoal font-bold">Catálogo de Piezas</h2>
+          <div class="w-16 h-0.5 bg-gold-500 mx-auto"></div>
+          <p class="text-stone-600 text-sm sm:text-base">
+            Explora las creaciones disponibles. Si te enamoras de una pieza, presiona el botón para acordar entrega o apartarla al instante.
+          </p>
+        </div>
+
+        <!-- Filtros y Búsqueda -->
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4 mb-8 bg-white p-4 rounded-2xl border border-warmbeige shadow-xs">
+          
+          <!-- Filtro de Categorías -->
+          <div class="flex flex-wrap items-center gap-2 w-full md:w-auto" id="categoryFilterContainer">
+            <button onclick="setCategoryFilter('all')" class="cat-pill active px-4 py-2 rounded-full text-xs font-semibold transition-all bg-charcoal text-white shadow-xs" data-category="all">
+              Todos
+            </button>
+            <button onclick="setCategoryFilter('Navidad & Temporada')" class="cat-pill px-4 py-2 rounded-full text-xs font-semibold text-stone-600 hover:bg-stone-100 transition-all border border-stone-200" data-category="Navidad & Temporada">
+              🎄 Navidad & Temporada
+            </button>
+            <button onclick="setCategoryFilter('Cerámica & Relieve')" class="cat-pill px-4 py-2 rounded-full text-xs font-semibold text-stone-600 hover:bg-stone-100 transition-all border border-stone-200" data-category="Cerámica & Relieve">
+              🏺 Cerámica & Relieve
+            </button>
+            <button onclick="setCategoryFilter('Bazar & Oportunidades')" class="cat-pill px-4 py-2 rounded-full text-xs font-semibold text-stone-600 hover:bg-stone-100 transition-all border border-stone-200" data-category="Bazar & Oportunidades">
+              ✨ Bazar & Oportunidades
+            </button>
+          </div>
+
+          <!-- Buscador y Filtro Solo Disponibles -->
+          <div class="flex items-center gap-3 w-full md:w-auto">
+            <div class="relative flex-grow sm:w-60">
+              <i data-lucide="search" class="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+              <input type="text" id="searchInput" oninput="renderCatalog()" placeholder="Buscar por nombre..." class="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-stone-200 bg-stone-50/50 focus:bg-white focus:outline-none focus:border-gold-500 transition-all">
+            </div>
+
+            <label class="flex items-center gap-2 cursor-pointer select-none text-xs text-stone-600 shrink-0 bg-stone-50 px-3 py-2 rounded-xl border border-stone-200 hover:bg-stone-100 transition-colors">
+              <input type="checkbox" id="onlyAvailableCheck" onchange="renderCatalog()" class="rounded text-gold-600 focus:ring-gold-500 h-3.5 w-3.5 border-stone-300">
+              <span>Solo disponibles</span>
+            </label>
+          </div>
+
+        </div>
+
+        <!-- GRID DE PRODUCTOS -->
+        <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <!-- Renderizado dinámico vía JavaScript -->
+        </div>
+
+        <!-- Estado vacío si no hay resultados -->
+        <div id="noResultsState" class="hidden text-center py-16 bg-white rounded-3xl border border-dashed border-stone-200 p-8">
+          <div class="w-16 h-16 rounded-full bg-gold-50 mx-auto flex items-center justify-center text-gold-500 mb-4">
+            <i data-lucide="package-open" class="w-8 h-8"></i>
+          </div>
+          <h3 class="font-serif text-lg font-bold text-charcoal">No encontramos piezas con ese filtro</h3>
+          <p class="text-xs text-stone-500 mt-1 max-w-sm mx-auto">Prueba cambiando la búsqueda o seleccionando otra categoría para descubrir más creaciones.</p>
+          <button onclick="resetFilters()" class="mt-4 px-4 py-2 rounded-full bg-charcoal text-white text-xs font-semibold hover:bg-stone-800 transition">
+            Ver todo el catálogo
+          </button>
+        </div>
+
+      </section>
+
+      <!-- SECCIÓN SOBRE LA ARTESANA -->
+      <section id="contacto" class="bg-linen py-16 border-t border-warmbeige">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="bg-white rounded-3xl p-8 sm:p-12 border border-warmbeige shadow-sm grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+            
+            <div class="md:col-span-5 text-center">
+              <div class="relative inline-block">
+                <div class="w-48 h-48 sm:w-56 sm:h-56 rounded-full overflow-hidden border-4 border-gold-400/40 p-1 bg-white shadow-md mx-auto">
+                  <div class="w-full h-full rounded-full bg-warmbeige flex items-center justify-center p-6">
+                    <!-- Ilustración sello NadiArt -->
+                    <div class="text-center space-y-2">
+                      <i data-lucide="palette" class="w-10 h-10 text-gold-600 mx-auto"></i>
+                      <p class="font-serif text-xs font-bold uppercase tracking-widest text-charcoal">Handmade with love</p>
+                      <p class="text-[10px] text-stone-500">Sello de Autor NadiArt</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="absolute bottom-2 right-2 bg-charcoal text-white text-[11px] px-3 py-1 rounded-full font-semibold border-2 border-white shadow-sm flex items-center gap-1">
+                  <span>🎨 Arte & Amor</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="md:col-span-7 space-y-4 text-stone-700">
+              <span class="text-xs font-bold tracking-widest uppercase text-gold-600">El alma del taller</span>
+              <h3 class="font-serif text-2xl sm:text-3xl text-charcoal font-bold">Creando con las manos y el corazón</h3>
+              <p class="text-sm leading-relaxed text-stone-600">
+                <em>"Ahorita que tengo un poco más de tiempo, he decidido compartir mis piezas. Hago cerámica, cuadros con relieve y aprovecho para sacar todo mi lado creativo."</em>
+              </p>
+              <p class="text-xs leading-relaxed text-stone-500">
+                Cada estrella, copo, esfera y plato lleva un proceso cuidadoso de modelado, secado, esmaltado y pintado fino con acabados dorados y esmaltes cristalinos. Además, encontrarás artículos curados y oportunidades en excelente estado.
+              </p>
+
+              <div class="pt-2 flex flex-wrap gap-3">
+                <button onclick="contactGeneral()" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold transition-colors shadow-sm">
+                  <i data-lucide="message-circle" class="w-4 h-4"></i>
+                  <span>Enviar mensaje por WhatsApp</span>
+                </button>
+                <div class="inline-flex items-center gap-1 text-xs text-stone-500 font-medium px-3 py-2 bg-stone-50 rounded-full border border-stone-200">
+                  <i data-lucide="map-pin" class="w-3.5 h-3.5 text-stone-400"></i>
+                  <span>Entregas locales y envíos a convenir</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ==================== VISTA PANEL ADMINISTRADOR ==================== -->
+    <div id="adminView" class="hidden min-h-[calc(100vh-80px)] bg-stone-100/70 py-8 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-7xl mx-auto space-y-8">
+        
+        <!-- Barra de Cabecera del Admin -->
+        <div class="bg-white rounded-2xl p-6 border border-stone-200 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-gold-500/10 text-gold-600 flex items-center justify-center font-bold text-xl border border-gold-500/20">
+              <i data-lucide="layout-dashboard" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h2 class="text-xl font-bold text-charcoal">Panel de Control NadiArt</h2>
+                <span class="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-md uppercase">Sesión Activa</span>
+              </div>
+              <p class="text-xs text-stone-500">Gestión de piezas, precios, fotos y configuración de pedidos.</p>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+            <button onclick="showCatalogView()" class="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl border border-stone-300 bg-white text-stone-700 text-xs font-semibold hover:bg-stone-50 transition">
+              <i data-lucide="eye" class="w-4 h-4"></i>
+              <span>Ver Tienda Pública</span>
+            </button>
+            <button onclick="logoutAdmin()" class="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold hover:bg-rose-100 transition">
+              <i data-lucide="log-out" class="w-4 h-4"></i>
+              <span>Cerrar Sesión</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Secciones del Dashboard: Métricas Rápidas -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-white p-4 rounded-2xl border border-stone-200 shadow-2xs">
+            <span class="text-xs text-stone-500 font-medium">Total Productos</span>
+            <p id="statTotal" class="text-2xl font-bold text-charcoal mt-1">0</p>
+          </div>
+          <div class="bg-white p-4 rounded-2xl border border-stone-200 shadow-2xs">
+            <span class="text-xs text-stone-500 font-medium">Disponibles</span>
+            <p id="statAvailable" class="text-2xl font-bold text-emerald-600 mt-1">0</p>
+          </div>
+          <div class="bg-white p-4 rounded-2xl border border-stone-200 shadow-2xs">
+            <span class="text-xs text-stone-500 font-medium">Agotados / Vendidos</span>
+            <p id="statSold" class="text-2xl font-bold text-amber-600 mt-1">0</p>
+          </div>
+          <div class="bg-white p-4 rounded-2xl border border-stone-200 shadow-2xs">
+            <span class="text-xs text-stone-500 font-medium">WhatsApp de Pedidos</span>
+            <p id="statPhone" class="text-xs font-semibold text-stone-800 mt-2 truncate">+52 ...</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          <!-- FORMULARIO CREAR / EDITAR PRODUCTO (5 Cols) -->
+          <div class="lg:col-span-5 bg-white rounded-3xl p-6 border border-stone-200 shadow-xs space-y-5">
+            <div class="border-b border-stone-100 pb-3 flex items-center justify-between">
+              <div>
+                <h3 id="formTitle" class="font-serif text-lg font-bold text-charcoal">Publicar Nueva Pieza</h3>
+                <p class="text-xs text-stone-500">Sube fotos tomadas con tu celular y fija su precio</p>
+              </div>
+              <button id="cancelEditBtn" onclick="resetProductForm()" class="hidden text-xs text-rose-600 font-medium hover:underline">
+                Cancelar edición
+              </button>
+            </div>
+
+            <form id="productForm" onsubmit="handleProductSubmit(event)" class="space-y-4">
+              <input type="hidden" id="editProductId" value="">
+
+              <!-- Nombre del producto -->
+              <div>
+                <label class="block text-xs font-semibold text-stone-700 mb-1">Nombre o Título de la Pieza *</label>
+                <input type="text" id="prodTitle" required placeholder="Ej: Esfera Copo de Nieve Cerámica" class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-stone-200 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 bg-stone-50/40">
+              </div>
+
+              <!-- Precio y Categoría -->
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-xs font-semibold text-stone-700 mb-1">Precio ($ MXN) *</label>
+                  <input type="number" id="prodPrice" required step="1" min="0" placeholder="150" class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-stone-200 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 bg-stone-50/40">
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-stone-700 mb-1">Categoría *</label>
+                  <select id="prodCategory" required class="w-full text-xs px-3 py-2.5 rounded-xl border border-stone-200 focus:outline-none focus:border-gold-500 bg-stone-50/40">
+                    <option value="Navidad & Temporada">Navidad & Temporada</option>
+                    <option value="Cerámica & Relieve">Cerámica & Relieve</option>
+                    <option value="Bazar & Oportunidades">Bazar & Oportunidades</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Estado de Disponibilidad -->
+              <div>
+                <label class="block text-xs font-semibold text-stone-700 mb-1">Estado de Inventario</label>
+                <select id="prodStatus" class="w-full text-xs px-3 py-2.5 rounded-xl border border-stone-200 focus:outline-none focus:border-gold-500 bg-stone-50/40">
+                  <option value="Disponible">🟢 Disponible para entrega</option>
+                  <option value="Agotado">🔴 Agotado / Pieza Vendida</option>
+                </select>
+              </div>
+
+              <!-- Carga de Foto -->
+              <div>
+                <label class="block text-xs font-semibold text-stone-700 mb-1">Foto de la pieza *</label>
+                
+                <div class="space-y-2">
+                  <!-- Botón subida de archivo directo -->
+                  <label class="flex flex-col items-center justify-center border-2 border-dashed border-stone-300 rounded-2xl p-4 cursor-pointer hover:bg-stone-50 hover:border-gold-400 transition-colors text-center">
+                    <i data-lucide="camera" class="w-6 h-6 text-gold-600 mb-1"></i>
+                    <span class="text-xs font-medium text-stone-700">Subir foto desde tu dispositivo</span>
+                    <span class="text-[10px] text-stone-400">JPG, PNG o foto tomada con el celular</span>
+                    <input type="file" id="prodFileInput" accept="image/*" class="hidden" onchange="handleImageUpload(event)">
+                  </label>
+
+                  <!-- O pegar URL directa (opcional) -->
+                  <div class="relative">
+                    <input type="text" id="prodImageUrl" placeholder="O pega un enlace de imagen (URL)..." onchange="updateImagePreviewFromUrl(this.value)" class="w-full text-[11px] px-3 py-2 rounded-xl border border-stone-200 focus:outline-none focus:border-gold-500 bg-stone-50/30">
+                  </div>
+                </div>
+
+                <!-- Preview de la foto seleccionada -->
+                <div id="imagePreviewContainer" class="mt-3 relative hidden aspect-video rounded-xl overflow-hidden border border-stone-200 bg-stone-100">
+                  <img id="formImagePreview" src="" alt="Previsualización" class="w-full h-full object-cover">
+                  <button type="button" onclick="clearSelectedImage()" class="absolute top-2 right-2 bg-charcoal/80 text-white p-1 rounded-full text-xs hover:bg-rose-600 transition">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Descripción -->
+              <div>
+                <label class="block text-xs font-semibold text-stone-700 mb-1">Descripción corta o medidas</label>
+                <textarea id="prodDesc" rows="3" placeholder="Ej: Cerámica con textura de pino nevado en dorado y relieve. Medida: 8cm de diámetro." class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-stone-200 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 bg-stone-50/40"></textarea>
+              </div>
+
+              <!-- Botón Guardar -->
+              <button type="submit" id="submitProductBtn" class="w-full py-3 rounded-xl bg-gold-600 hover:bg-gold-700 text-white font-semibold text-xs tracking-wider uppercase transition shadow-sm flex items-center justify-center gap-2">
+                <i data-lucide="plus-circle" class="w-4 h-4"></i>
+                <span id="btnSubmitText">Publicar Pieza</span>
+              </button>
+            </form>
+          </div>
+
+          <!-- LISTA Y GESTIÓN DE PRODUCTOS (7 Cols) -->
+          <div class="lg:col-span-7 space-y-6">
+            
+            <div class="bg-white rounded-3xl p-6 border border-stone-200 shadow-xs">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-stone-100">
+                <div>
+                  <h3 class="font-serif text-lg font-bold text-charcoal">Inventario Actual</h3>
+                  <p class="text-xs text-stone-500">Haz clic en modificar o cambia el precio al instante</p>
+                </div>
+                <div class="relative w-full sm:w-48">
+                  <input type="text" id="adminSearchInput" oninput="renderAdminTable()" placeholder="Filtrar lista..." class="w-full text-xs pl-8 pr-3 py-1.5 rounded-xl border border-stone-200 bg-stone-50">
+                  <i data-lucide="search" class="w-3.5 h-3.5 text-stone-400 absolute left-2.5 top-1/2 -translate-y-1/2"></i>
+                </div>
+              </div>
+
+              <!-- Contenedor Tabla responsiva -->
+              <div class="overflow-x-auto custom-scroll max-h-[580px]">
+                <table class="w-full text-left text-xs">
+                  <thead class="bg-stone-50 text-stone-600 font-semibold sticky top-0 border-b border-stone-200">
+                    <tr>
+                      <th class="py-2.5 px-3">Pieza</th>
+                      <th class="py-2.5 px-2">Categoría</th>
+                      <th class="py-2.5 px-2">Precio</th>
+                      <th class="py-2.5 px-2">Estado</th>
+                      <th class="py-2.5 px-3 text-right">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody id="adminTableBody" class="divide-y divide-stone-100 text-stone-700">
+                    <!-- Fila dinámica vía JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- AJUSTES DE TIENDA Y CUENTA (CAMBIO DE PASSWORD) -->
+            <div class="bg-white rounded-3xl p-6 border border-stone-200 shadow-xs space-y-6">
+              
+              <div class="flex items-center gap-2 border-b border-stone-100 pb-3">
+                <i data-lucide="sliders" class="w-5 h-5 text-gold-600"></i>
+                <h3 class="font-serif text-base font-bold text-charcoal">Configuración de Tienda & Acceso</h3>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- Ajuste Teléfono WhatsApp -->
+                <div class="space-y-3 bg-stone-50 p-4 rounded-2xl border border-stone-200">
+                  <div class="flex items-center gap-2">
+                    <i data-lucide="phone" class="w-4 h-4 text-emerald-600"></i>
+                    <h4 class="text-xs font-bold text-stone-800">Número de WhatsApp de Venta</h4>
+                  </div>
+                  <p class="text-[11px] text-stone-500">Aquí te llegarán los mensajes automáticos de los clientes listos para comprar.</p>
+                  <div class="space-y-2">
+                    <input type="text" id="settingWhatsapp" placeholder="Ej: 5214621234567" class="w-full text-xs px-3 py-2 rounded-xl border border-stone-300 bg-white">
+                    <button onclick="saveWhatsappSettings()" class="w-full py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold transition">
+                      Guardar Teléfono
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Cambio de Contraseña y Usuario -->
+                <div class="space-y-3 bg-stone-50 p-4 rounded-2xl border border-stone-200">
+                  <div class="flex items-center gap-2">
+                    <i data-lucide="key-round" class="w-4 h-4 text-gold-600"></i>
+                    <h4 class="text-xs font-bold text-stone-800">Cambiar Contraseña y Acceso</h4>
+                  </div>
+                  <p class="text-[11px] text-stone-500">Actualiza tus credenciales para mantener tu panel protegido de forma privada.</p>
+                  
+                  <div class="space-y-2">
+                    <input type="text" id="settingNewUsername" placeholder="Nuevo Nombre de Usuario" class="w-full text-xs px-3 py-2 rounded-xl border border-stone-300 bg-white">
+                    <input type="password" id="settingNewPassword" placeholder="Nueva Contraseña" class="w-full text-xs px-3 py-2 rounded-xl border border-stone-300 bg-white">
+                    <button onclick="saveCredentialsSettings()" class="w-full py-2 rounded-xl bg-charcoal hover:bg-stone-800 text-white text-xs font-semibold transition">
+                      Actualizar Credenciales
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- MODAL LOGIN ADMINISTRADOR -->
+  <div id="loginModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-sm w-full border border-warmbeige shadow-2xl relative animate-in fade-in zoom-in duration-200">
+      
+      <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-stone-400 hover:text-stone-700 p-1">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="text-center space-y-2 mb-6">
+        <div class="w-12 h-12 rounded-2xl bg-gold-50 border border-gold-200 text-gold-600 flex items-center justify-center mx-auto mb-2">
+          <i data-lucide="shield-check" class="w-6 h-6"></i>
+        </div>
+        <h3 class="font-serif text-xl font-bold text-charcoal">Acceso a Taller</h3>
+        <p class="text-xs text-stone-500">Ingresa tus credenciales para administrar tus piezas</p>
+      </div>
+
+      <form onsubmit="handleLoginSubmit(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-stone-700 mb-1">Usuario</label>
+          <input type="text" id="loginUsername" required class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-stone-200 focus:outline-none focus:border-gold-500 bg-stone-50/50" placeholder="Ingresa tu usuario">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-stone-700 mb-1">Contraseña</label>
+          <input type="password" id="loginPassword" required class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-stone-200 focus:outline-none focus:border-gold-500 bg-stone-50/50" placeholder="••••••••">
+        </div>
+
+        <div id="loginErrorMsg" class="hidden text-xs text-rose-600 bg-rose-50 p-2.5 rounded-xl border border-rose-200 text-center font-medium">
+          Usuario o contraseña incorrectos
+        </div>
+
+        <button type="submit" class="w-full py-3 rounded-xl bg-charcoal hover:bg-stone-800 text-white font-semibold text-xs tracking-wider uppercase transition shadow-md">
+          Entrar al Panel
+        </button>
+      </form>
+
+      <div class="mt-4 text-center">
+        <p class="text-[11px] text-stone-400">Acceso exclusivo de administración</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DETALLE DE PRODUCTO (CLIENTES) -->
+  <div id="productDetailModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl overflow-hidden max-w-2xl w-full border border-warmbeige shadow-2xl relative">
+      
+      <button onclick="closeProductDetailModal()" class="absolute top-4 right-4 z-10 bg-white/80 backdrop-blur-xs text-stone-700 hover:text-stone-900 p-2 rounded-full shadow-md">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="grid grid-cols-1 md:grid-cols-2">
+        <div class="aspect-square bg-stone-100 overflow-hidden relative">
+          <img id="detailModalImage" src="" alt="" class="w-full h-full object-cover">
+          <span id="detailModalBadge" class="absolute bottom-3 left-3 text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
+            Disponible
+          </span>
+        </div>
+
+        <div class="p-6 sm:p-8 flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <span id="detailModalCategory" class="text-[11px] uppercase tracking-widest font-semibold text-gold-600">Categoría</span>
+            <h3 id="detailModalTitle" class="font-serif text-2xl font-bold text-charcoal">Nombre de la pieza</h3>
+            <p id="detailModalPrice" class="text-2xl font-bold text-gold-600">$0 MXN</p>
+            <div class="w-12 h-0.5 bg-stone-200"></div>
+            <p id="detailModalDesc" class="text-xs leading-relaxed text-stone-600">Descripción completa...</p>
+          </div>
+
+          <div class="pt-4 space-y-2">
+            <button id="detailModalWhatsappBtn" class="w-full py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs uppercase tracking-wider transition shadow-md flex items-center justify-center gap-2">
+              <i data-lucide="message-circle" class="w-4 h-4"></i>
+              <span>Lo quiero / Pedir por WhatsApp</span>
+            </button>
+            <p class="text-[10px] text-center text-stone-400">Acuerda pago, envío o entrega personal directamente</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-white border-t border-warmbeige py-10 mt-auto text-stone-600 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <span class="font-serif font-bold text-charcoal text-base">Nadi<span class="text-gold-600">Art</span></span>
+        <span class="text-stone-400">|</span>
+        <span class="text-stone-500">Hecho a mano con creatividad y detalle</span>
+      </div>
+      <div class="text-center sm:text-right text-stone-400">
+        <p>© 2026 NadiArt. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== LÓGICA JAVASCRIPT ==================== -->
+  <script>
+    // --- ESTADO INICIAL Y PERSISTENCIA (LOCALSTORAGE) ---
+    const STORAGE_KEY_PRODUCTS = 'nadiart_products_db';
+    const STORAGE_KEY_AUTH = 'nadiart_auth_credentials';
+    const STORAGE_KEY_CONFIG = 'nadiart_store_config';
+
+    // Productos muestra basados en las fotos
+    const DEFAULT_PRODUCTS = [
+      {
+        id: 'p1',
+        title: 'Esferas & Adornos Navideños en Cerámica',
+        price: 95,
+        category: 'Navidad & Temporada',
+        status: 'Disponible',
+        image: 'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&q=80&w=800',
+        desc: 'Adornos hechos a mano con relieves navideños finos (pinos, casitas y copos de nieve). Detalles esmaltados en dorado fino y turquesa invernal. Vienen con lazo para colgar.'
+      },
+      {
+        id: 'p2',
+        title: 'Adorno Estrella "Merry Christmas" en Relieve',
+        price: 110,
+        category: 'Navidad & Temporada',
+        status: 'Disponible',
+        image: 'https://images.unsplash.com/photo-1512474932049-78ac69ede12c?auto=format&fit=crop&q=80&w=800',
+        desc: 'Estrella en cerámica blanca con silueta de villa invernal y pinos en relieve. Acabado blanco mate con grabado artesanal de alta durabilidad.'
+      },
+      {
+        id: 'p3',
+        title: 'Copo de Nieve Glacial Cerámico',
+        price: 90,
+        category: 'Navidad & Temporada',
+        status: 'Disponible',
+        image: 'https://images.unsplash.com/photo-1513297887119-d46091b24bfa?auto=format&fit=crop&q=80&w=800',
+        desc: 'Medallón circular con relieve profundo de copo de nieve resaltado en esmalte turquesa aguamarina. Una pieza fresca y luminosa para el árbol o un rincón especial.'
+      },
+      {
+        id: 'p4',
+        title: 'Servilletero Navideño Copo Dorado',
+        price: 120,
+        category: 'Navidad & Temporada',
+        status: 'Disponible',
+        image: 'https://images.unsplash.com/photo-1576014131341-fe1486fb2475?auto=format&fit=crop&q=80&w=800',
+        desc: 'Aro servilletero cerámico con flor/copo modelado a mano y baño dorado metalizado. Dale un toque de elegancia y calidez a tu mesa en las fiestas.'
+      },
+      {
+        id: 'p5',
+        title: 'Cuadro en Relieve Botánico Texturizado',
+        price: 320,
+        category: 'Cerámica & Relieve',
+        status: 'Disponible',
+        image: 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&q=80&w=800',
+        desc: 'Pieza decorativa de pared con textura táctil en relieve de pasta cerámica y pigmentos minerales neutros. Hecho con espátula y amor creativo.'
+      },
+      {
+        id: 'p6',
+        title: 'Platillo Joyero con Sello de Gatito NadiArt',
+        price: 140,
+        category: 'Cerámica & Relieve',
+        status: 'Disponible',
+        image: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&q=80&w=800',
+        desc: 'Platito porta anillos y accesorios con el sello original del gatito grabado en la base y bordes irregulares orgánicos en tono oro viejo.'
+      },
+      {
+        id: 'p7',
+        title: 'Espejo Vintage Curado de Colección',
+        price: 250,
+        category: 'Bazar & Oportunidades',
+        status: 'Agotado',
+        image: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&q=80&w=800',
+        desc: 'Pieza única de bazar en excelente estado estético. Marco labrado estilo clásico para decoración de recibidor o tocador.'
+      }
+    ];
+
+    // Cargar o Inicializar Datos
+    let products = JSON.parse(localStorage.getItem(STORAGE_KEY_PRODUCTS)) || DEFAULT_PRODUCTS;
+    let authConfig = JSON.parse(localStorage.getItem(STORAGE_KEY_AUTH)) || {
+      username: 'nadielope',
+      password: 'pepelechuy'
+    };
+    let storeConfig = JSON.parse(localStorage.getItem(STORAGE_KEY_CONFIG)) || {
+      whatsappNumber: '5214620000000'
+    };
+
+    let currentAdminSession = false;
+    let currentCategoryFilter = 'all';
+    let currentBase64Image = null;
+
+    // --- FUNCIONES DE PERSISTENCIA ---
+    function saveProducts() {
+      localStorage.setItem(STORAGE_KEY_PRODUCTS, JSON.stringify(products));
+      renderCatalog();
+      renderAdminTable();
+      updateMetrics();
+    }
+
+    function saveAuthConfig() {
+      localStorage.setItem(STORAGE_KEY_AUTH, JSON.stringify(authConfig));
+    }
+
+    function saveStoreConfig() {
+      localStorage.setItem(STORAGE_KEY_CONFIG, JSON.stringify(storeConfig));
+    }
+
+    // --- CONTROL DE NAVEGACIÓN Y VISTAS ---
+    function showCatalogView() {
+      document.getElementById('clientView').classList.remove('hidden');
+      document.getElementById('adminView').classList.add('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function showAdminView() {
+      if (!currentAdminSession) {
+        openLoginModal();
+        return;
+      }
+      document.getElementById('clientView').classList.add('hidden');
+      document.getElementById('adminView').classList.remove('hidden');
+      document.getElementById('settingWhatsapp').value = storeConfig.whatsappNumber;
+      document.getElementById('settingNewUsername').value = '';
+      document.getElementById('settingNewPassword').value = '';
+      renderAdminTable();
+      updateMetrics();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function handleAdminButtonClick() {
+      if (currentAdminSession) {
+        showAdminView();
+      } else {
+        openLoginModal();
+      }
+    }
+
+    // --- AUTENTICACIÓN ---
+    function openLoginModal() {
+      document.getElementById('loginModal').classList.remove('hidden');
+      document.getElementById('loginUsername').value = '';
+      document.getElementById('loginPassword').value = '';
+      document.getElementById('loginErrorMsg').classList.add('hidden');
+    }
+
+    function closeLoginModal() {
+      document.getElementById('loginModal').classList.add('hidden');
+    }
+
+    function handleLoginSubmit(e) {
+      e.preventDefault();
+      const userVal = document.getElementById('loginUsername').value.trim();
+      const passVal = document.getElementById('loginPassword').value.trim();
+
+      if (userVal === authConfig.username && passVal === authConfig.password) {
+        currentAdminSession = true;
+        closeLoginModal();
+        updateAdminNavState();
+        showAdminView();
+        showToast('Sesión de administración iniciada');
+      } else {
+        document.getElementById('loginErrorMsg').classList.remove('hidden');
+      }
+    }
+
+    function logoutAdmin() {
+      currentAdminSession = false;
+      updateAdminNavState();
+      showCatalogView();
+      showToast('Sesión de administración cerrada');
+    }
+
+    function updateAdminNavState() {
+      const textSpan = document.getElementById('adminNavText');
+      if (currentAdminSession) {
+        textSpan.textContent = 'Mi Taller (Admin)';
+      } else {
+        textSpan.textContent = 'Administrar';
+      }
+    }
+
+    function saveCredentialsSettings() {
+      const newU = document.getElementById('settingNewUsername').value.trim();
+      const newP = document.getElementById('settingNewPassword').value.trim();
+
+      if (!newU && !newP) {
+        showToast('Escribe un nuevo usuario o contraseña para actualizar');
+        return;
+      }
+
+      if (newU) authConfig.username = newU;
+      if (newP) authConfig.password = newP;
+      saveAuthConfig();
+
+      document.getElementById('settingNewUsername').value = '';
+      document.getElementById('settingNewPassword').value = '';
+      showToast('Tus credenciales de acceso se han actualizado con éxito');
+    }
+
+    function saveWhatsappSettings() {
+      const phone = document.getElementById('settingWhatsapp').value.replace(/[^0-9]/g, '');
+      if (phone.length < 8) {
+        showToast('Introduce un número válido con código de país (ej: 521...)');
+        return;
+      }
+      storeConfig.whatsappNumber = phone;
+      saveStoreConfig();
+      updateMetrics();
+      showToast('Número de WhatsApp guardado para ventas');
+    }
+
+    // --- RENDERIZADO DEL CATÁLOGO PÚBLICO ---
+    function setCategoryFilter(category) {
+      currentCategoryFilter = category;
+      document.querySelectorAll('.cat-pill').forEach(btn => {
+        if (btn.dataset.category === category) {
+          btn.className = 'cat-pill active px-4 py-2 rounded-full text-xs font-semibold transition-all bg-charcoal text-white shadow-xs';
+        } else {
+          btn.className = 'cat-pill px-4 py-2 rounded-full text-xs font-semibold text-stone-600 hover:bg-stone-100 transition-all border border-stone-200';
+        }
+      });
+      renderCatalog();
+    }
+
+    function resetFilters() {
+      document.getElementById('searchInput').value = '';
+      document.getElementById('onlyAvailableCheck').checked = false;
+      setCategoryFilter('all');
+    }
+
+    function renderCatalog() {
+      const grid = document.getElementById('productsGrid');
+      const noResults = document.getElementById('noResultsState');
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+      const onlyAvailable = document.getElementById('onlyAvailableCheck').checked;
+
+      grid.innerHTML = '';
+
+      const filtered = products.filter(p => {
+        const matchesCategory = currentCategoryFilter === 'all' || p.category === currentCategoryFilter;
+        const matchesSearch = p.title.toLowerCase().includes(searchTerm) || (p.desc && p.desc.toLowerCase().includes(searchTerm));
+        const matchesAvailable = !onlyAvailable || p.status === 'Disponible';
+        return matchesCategory && matchesSearch && matchesAvailable;
+      });
+
+      if (filtered.length === 0) {
+        noResults.classList.remove('hidden');
+        return;
+      } else {
+        noResults.classList.add('hidden');
+      }
+
+      filtered.forEach(prod => {
+        const isAvailable = prod.status === 'Disponible';
+        const card = document.createElement('div');
+        card.className = 'bg-white rounded-3xl overflow-hidden border border-warmbeige shadow-xs hover:shadow-md transition-all duration-300 flex flex-col group';
+
+        const whatsappMsg = encodeURIComponent(`¡Hola NadiArt! Me encantó la pieza "${prod.title}" de $${prod.price} MXN que vi en tu catálogo. ¿Sigue disponible para entrega?`);
+        const whatsappLink = `https://wa.me/${storeConfig.whatsappNumber}?text=${whatsappMsg}`;
+
+        card.innerHTML = `
+          <div class="relative aspect-square overflow-hidden bg-stone-100 cursor-pointer" onclick="openProductDetailModal('${prod.id}')">
+            <img src="${prod.image}" alt="${prod.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            
+            <div class="absolute top-3 left-3">
+              <span class="text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider backdrop-blur-xs shadow-xs ${
+                isAvailable ? 'bg-emerald-600/90 text-white' : 'bg-stone-700/85 text-stone-200'
+              }">
+                ${prod.status}
+              </span>
+            </div>
+
+            <div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+              <div class="w-8 h-8 rounded-full bg-white/90 text-stone-800 flex items-center justify-center shadow-md">
+                <i data-lucide="zoom-in" class="w-4 h-4"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-5 flex flex-col flex-grow justify-between space-y-4">
+            <div class="space-y-1.5">
+              <span class="text-[10px] uppercase font-bold tracking-widest text-gold-600">${prod.category}</span>
+              <h3 class="font-serif text-base font-bold text-charcoal line-clamp-1 cursor-pointer hover:text-gold-600 transition" onclick="openProductDetailModal('${prod.id}')">
+                ${prod.title}
+              </h3>
+              <p class="text-xs text-stone-500 line-clamp-2 leading-relaxed">
+                ${prod.desc || 'Pieza artesanal única hecha a mano.'}
+              </p>
+            </div>
+
+            <div class="pt-2 border-t border-stone-100 flex items-center justify-between gap-2">
+              <div>
+                <span class="text-[10px] text-stone-400 block uppercase font-medium">Precio</span>
+                <span class="font-serif text-lg font-bold text-charcoal">$${prod.price} <span class="text-xs font-sans font-normal text-stone-500">MXN</span></span>
+              </div>
+
+              ${isAvailable ? `
+                <a href="${whatsappLink}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold tracking-wide transition flex items-center gap-1.5 shadow-2xs">
+                  <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+                  <span>Pedir</span>
+                </a>
+              ` : `
+                <button disabled class="px-3 py-1.5 rounded-xl bg-stone-100 text-stone-400 text-xs font-semibold cursor-not-allowed">
+                  Agotado
+                </button>
+              `}
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      lucide.createIcons();
+    }
+
+    // --- MODAL DETALLE PRODUCTO (CLIENTES) ---
+    function openProductDetailModal(id) {
+      const prod = products.find(p => p.id === id);
+      if (!prod) return;
+
+      document.getElementById('detailModalImage').src = prod.image;
+      document.getElementById('detailModalCategory').textContent = prod.category;
+      document.getElementById('detailModalTitle').textContent = prod.title;
+      document.getElementById('detailModalPrice').textContent = `$${prod.price} MXN`;
+      document.getElementById('detailModalDesc').textContent = prod.desc || 'Pieza hecha con relieve y cerámica artesanal.';
+
+      const badge = document.getElementById('detailModalBadge');
+      const isAvailable = prod.status === 'Disponible';
+      badge.textContent = prod.status;
+      badge.className = isAvailable 
+        ? 'absolute bottom-3 left-3 text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm bg-emerald-600 text-white'
+        : 'absolute bottom-3 left-3 text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm bg-stone-700 text-stone-200';
+
+      const waBtn = document.getElementById('detailModalWhatsappBtn');
+      const whatsappMsg = encodeURIComponent(`Hola NadiArt! Quisiera comprar la pieza "${prod.title}" que vi en el catálogo por $${prod.price} MXN.`);
+      
+      if (isAvailable) {
+        waBtn.onclick = () => window.open(`https://wa.me/${storeConfig.whatsappNumber}?text=${whatsappMsg}`, '_blank');
+        waBtn.classList.remove('opacity-50', 'pointer-events-none');
+        waBtn.innerHTML = `<i data-lucide="message-circle" class="w-4 h-4"></i><span>Lo quiero / Pedir por WhatsApp</span>`;
+      } else {
+        waBtn.classList.add('opacity-50', 'pointer-events-none');
+        waBtn.innerHTML = `<span>Esta pieza ya fue vendida</span>`;
+      }
+
+      document.getElementById('productDetailModal').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function closeProductDetailModal() {
+      document.getElementById('productDetailModal').classList.add('hidden');
+    }
+
+    function contactGeneral() {
+      const msg = encodeURIComponent('¡Hola NadiArt! Visité tu página web de catálogo y me gustaría pedirte información sobre tus piezas y pedidos.');
+      window.open(`https://wa.me/${storeConfig.whatsappNumber}?text=${msg}`, '_blank');
+    }
+
+    // --- PANEL ADMIN: GESTIÓN DE PRODUCTOS ---
+    function renderAdminTable() {
+      const tbody = document.getElementById('adminTableBody');
+      const filter = document.getElementById('adminSearchInput') ? document.getElementById('adminSearchInput').value.toLowerCase() : '';
+      tbody.innerHTML = '';
+
+      const filtered = products.filter(p => p.title.toLowerCase().includes(filter) || p.category.toLowerCase().includes(filter));
+
+      filtered.forEach(prod => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-stone-50/70 transition';
+        tr.innerHTML = `
+          <td class="py-3 px-3">
+            <div class="flex items-center gap-2.5">
+              <img src="${prod.image}" alt="" class="w-10 h-10 rounded-lg object-cover border border-stone-200 shrink-0">
+              <div class="font-medium text-stone-800 line-clamp-1">${prod.title}</div>
+            </div>
+          </td>
+          <td class="py-3 px-2 text-stone-500 whitespace-nowrap">${prod.category}</td>
+          <td class="py-3 px-2 whitespace-nowrap">
+            <div class="flex items-center gap-1 font-bold text-stone-800">
+              $<span>${prod.price}</span>
+            </div>
+          </td>
+          <td class="py-3 px-2 whitespace-nowrap">
+            <button onclick="toggleProductStatus('${prod.id}')" class="px-2.5 py-1 rounded-full text-[10px] font-bold tracking-wide transition ${
+              prod.status === 'Disponible' 
+                ? 'bg-emerald-100 text-emerald-800 hover:bg-emerald-200' 
+                : 'bg-amber-100 text-amber-800 hover:bg-amber-200'
+            }">
+              ${prod.status}
+            </button>
+          </td>
+          <td class="py-3 px-3 text-right whitespace-nowrap space-x-1">
+            <button onclick="editProduct('${prod.id}')" title="Editar" class="p-1.5 rounded-lg text-stone-600 hover:text-gold-600 hover:bg-gold-50 transition">
+              <i data-lucide="edit-3" class="w-4 h-4"></i>
+            </button>
+            <button onclick="deleteProduct('${prod.id}')" title="Eliminar" class="p-1.5 rounded-lg text-stone-400 hover:text-rose-600 hover:bg-rose-50 transition">
+              <i data-lucide="trash-2" class="w-4 h-4"></i>
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      lucide.createIcons();
+    }
+
+    function updateMetrics() {
+      document.getElementById('statTotal').textContent = products.length;
+      document.getElementById('statAvailable').textContent = products.filter(p => p.status === 'Disponible').length;
+      document.getElementById('statSold').textContent = products.filter(p => p.status === 'Agotado').length;
+      document.getElementById('statPhone').textContent = '+' + storeConfig.whatsappNumber;
+    }
+
+    // --- CARGA DE IMAGEN (FILE / CÁMARA O URL) ---
+    function handleImageUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        currentBase64Image = evt.target.result;
+        showImagePreview(currentBase64Image);
+        document.getElementById('prodImageUrl').value = '';
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function updateImagePreviewFromUrl(url) {
+      if (url.trim()) {
+        currentBase64Image = url.trim();
+        showImagePreview(currentBase64Image);
+      }
+    }
+
+    function showImagePreview(src) {
+      const container = document.getElementById('imagePreviewContainer');
+      const img = document.getElementById('formImagePreview');
+      img.src = src;
+      container.classList.remove('hidden');
+    }
+
+    function clearSelectedImage() {
+      currentBase64Image = null;
+      document.getElementById('prodFileInput').value = '';
+      document.getElementById('prodImageUrl').value = '';
+      document.getElementById('imagePreviewContainer').classList.add('hidden');
+    }
+
+    // --- SUBMIT PRODUCTO (CREAR / EDITAR) ---
+    function handleProductSubmit(e) {
+      e.preventDefault();
+
+      const editId = document.getElementById('editProductId').value;
+      const title = document.getElementById('prodTitle').value.trim();
+      const price = parseFloat(document.getElementById('prodPrice').value);
+      const category = document.getElementById('prodCategory').value;
+      const status = document.getElementById('prodStatus').value;
+      const desc = document.getElementById('prodDesc').value.trim();
+
+      const finalImage = currentBase64Image || 'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&q=80&w=800';
+
+      if (editId) {
+        // Modificar existente
+        const index = products.findIndex(p => p.id === editId);
+        if (index !== -1) {
+          products[index] = {
+            ...products[index],
+            title,
+            price,
+            category,
+            status,
+            desc,
+            image: finalImage
+          };
+          showToast('Pieza actualizada exitosamente');
+        }
+      } else {
+        // Crear nuevo
+        const newProduct = {
+          id: 'p_' + Date.now(),
+          title,
+          price,
+          category,
+          status,
+          desc,
+          image: finalImage
+        };
+        products.unshift(newProduct);
+        showToast('¡Nueva pieza publicada en tu catálogo!');
+      }
+
+      saveProducts();
+      resetProductForm();
+    }
+
+    function editProduct(id) {
+      const prod = products.find(p => p.id === id);
+      if (!prod) return;
+
+      document.getElementById('editProductId').value = prod.id;
+      document.getElementById('prodTitle').value = prod.title;
+      document.getElementById('prodPrice').value = prod.price;
+      document.getElementById('prodCategory').value = prod.category;
+      document.getElementById('prodStatus').value = prod.status;
+      document.getElementById('prodDesc').value = prod.desc || '';
+      
+      currentBase64Image = prod.image;
+      showImagePreview(prod.image);
+
+      document.getElementById('formTitle').textContent = 'Editar Pieza';
+      document.getElementById('btnSubmitText').textContent = 'Guardar Cambios';
+      document.getElementById('cancelEditBtn').classList.remove('hidden');
+
+      window.scrollTo({ top: 120, behavior: 'smooth' });
+    }
+
+    function resetProductForm() {
+      document.getElementById('productForm').reset();
+      document.getElementById('editProductId').value = '';
+      clearSelectedImage();
+      document.getElementById('formTitle').textContent = 'Publicar Nueva Pieza';
+      document.getElementById('btnSubmitText').textContent = 'Publicar Pieza';
+      document.getElementById('cancelEditBtn').classList.add('hidden');
+    }
+
+    function toggleProductStatus(id) {
+      const prod = products.find(p => p.id === id);
+      if (!prod) return;
+      prod.status = prod.status === 'Disponible' ? 'Agotado' : 'Disponible';
+      saveProducts();
+      showToast(`Estado cambiado a: ${prod.status}`);
+    }
+
+    function deleteProduct(id) {
+      const prod = products.find(p => p.id === id);
+      if (!prod) return;
+      
+      // Eliminación directa sin alert
+      products = products.filter(p => p.id !== id);
+      saveProducts();
+      showToast(`Pieza eliminada del catálogo`);
+    }
+
+    // --- MENSAJES TOAST ELEGANTE ---
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toastMessage');
+      toastMsg.textContent = message;
+      toast.classList.remove('opacity-0', 'translate-y-24');
+      toast.classList.add('opacity-100', 'translate-y-0');
+
+      setTimeout(() => {
+        toast.classList.remove('opacity-100', 'translate-y-0');
+        toast.classList.add('opacity-0', 'translate-y-24');
+      }, 3500);
+    }
+
+    // --- INICIALIZACIÓN ---
+    window.onload = function() {
+      renderCatalog();
+      updateMetrics();
+      lucide.createIcons();
+    };
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "name": "Remix NadiArt - Taller \u0026 Catálogo Artesanal",
+  "description": "Catálogo artesanal de piezas en cerámica, cuadros con relieve y tesoros únicos con panel de administración y pedidos por WhatsApp para NadiArt.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
