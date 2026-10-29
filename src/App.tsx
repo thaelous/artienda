@@ -528,14 +528,14 @@ export default function App() {
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="font-serif text-2xl font-bold tracking-wider text-charcoal">
-                  Nadi<span className="text-gold-600 font-medium">Art</span>
-                </span>
+                <h1 className="font-serif text-2xl font-bold tracking-wider text-charcoal m-0 p-0 inline-flex items-center">
+                  Nadi<span className="text-[#d4a373] font-medium">Art</span>
+                </h1>
                 <span className="text-[10px] tracking-widest uppercase font-semibold text-glacier-700 bg-glacier-100/70 px-2 py-0.5 rounded-full border border-glacier-300">
                   Taller
                 </span>
               </div>
-              <p className="text-xs text-stone-500 font-light tracking-wide">Cerámica, relieve & curaduría</p>
+              <p className="text-xs text-stone-500 font-light tracking-wide">Cerámica, relieve & tesoros artesanales</p>
             </div>
           </button>
 

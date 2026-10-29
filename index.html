@@ -126,7 +126,7 @@
         </div>
         <div>
           <div class="flex items-center gap-1.5">
-            <span id="cmsBrandName" class="font-serif text-2xl font-bold tracking-wider store-dynamic-text">Nadi<span class="text-theme-primary font-medium">Art</span></span>
+            <h1 id="cmsBrandName" class="font-serif text-2xl font-bold tracking-wider text-[#2B2B2B] store-dynamic-text m-0 p-0 inline-flex items-center">Nadi<span class="font-medium text-[#d4a373] text-theme-primary">Art</span></h1>
             <span id="cmsBrandBadge" class="text-[10px] tracking-widest uppercase font-semibold text-theme-secondary bg-glacier-50 px-2 py-0.5 rounded-full border border-theme-secondary">Taller</span>
           </div>
           <p id="cmsBrandSubtitle" class="text-xs text-stone-500 font-light tracking-wide">Cerámica, relieve & tesoros artesanales</p>
@@ -1417,7 +1417,11 @@
         try {
           const localStored = localStorage.getItem(STORAGE_KEY_SETTINGS_FALLBACK);
           if (localStored) {
-            this.siteSettings = { ...DEFAULT_SITE_SETTINGS, ...JSON.parse(localStored) };
+            const parsed = JSON.parse(localStored);
+            if (parsed && (parsed.brandName === 'NadiArtArt' || parsed.brandName === 'NadiArt')) {
+              parsed.brandName = 'NadiArt';
+            }
+            this.siteSettings = { ...DEFAULT_SITE_SETTINGS, ...parsed };
           }
         } catch (e) {
           console.warn("Fallback local:", e);
@@ -1509,7 +1513,14 @@
         // 2. Textos Header & Branding
         const brandNameEl = document.getElementById('cmsBrandName');
         if (brandNameEl) {
-          brandNameEl.innerHTML = `${settings.brandName || 'Nadi'}<span class="text-theme-primary font-medium">Art</span>`;
+          const rawName = (settings.brandName || 'NadiArt').trim();
+          let prefix = 'Nadi';
+          if (rawName.toLowerCase().endsWith('art') && rawName.length > 3) {
+            prefix = rawName.slice(0, -3).trim() || 'Nadi';
+          } else if (rawName && !rawName.toLowerCase().endsWith('art')) {
+            prefix = rawName;
+          }
+          brandNameEl.innerHTML = `${prefix}<span class="font-medium text-[#d4a373] text-theme-primary">Art</span>`;
         }
         const brandBadgeEl = document.getElementById('cmsBrandBadge');
         if (brandBadgeEl) brandBadgeEl.textContent = settings.brandBadge || 'Taller';
